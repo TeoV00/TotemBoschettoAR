@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:totem_boschetto/views/qrcode_nav_section.dart';
 
 const selectedTextStyle = TextStyle(
   color: Colors.white,
@@ -40,40 +41,34 @@ class _NavRailMenuState extends State<NavRailMenu> {
   int _selectedIndex = 0;
 
   @override
-  Widget build(Object context) {
+  Widget build(BuildContext context) {
+    var screenSize = MediaQuery.of(context).size;
+    var navRailWidth = screenSize.width * 0.2;
+    var emptyLeadingSpace = screenSize.height * 0.2;
     return Row(
       children: [
-        Container(
-          color: const Color.fromRGBO(161, 204, 130, 1),
-          child: Column(
-            children: [
-              const Spacer(flex: 1),
-              Expanded(
-                flex: 3,
-                child: NavigationRail(
-                  backgroundColor: Colors.transparent,
-                  extended: true,
-                  selectedLabelTextStyle: selectedTextStyle,
-                  unselectedLabelTextStyle: unselectedTextStyle,
-                  selectedIndex: _selectedIndex,
-                  onDestinationSelected: (int idx) {
-                    setState(() {
-                      _selectedIndex = idx;
-                    });
-                  },
-                  destinations: destinations.keys.toList(),
-                ),
-              ),
-              Expanded(
-                flex: 1,
-                //TODO: put here qr code to scan with mobile app
-                child: Container(
-                  color: Colors.amber,
-                  child: const Text("QRCOde"),
-                ),
-              )
-            ],
+        NavigationRail(
+          leading: SizedBox(height: emptyLeadingSpace),
+          trailing: Expanded(
+            child: Column(
+              children: const [
+                Spacer(),
+                QrCodeNavSection(),
+              ],
+            ),
           ),
+          backgroundColor: const Color.fromRGBO(161, 204, 130, 1),
+          extended: true,
+          minExtendedWidth: navRailWidth,
+          selectedLabelTextStyle: selectedTextStyle,
+          unselectedLabelTextStyle: unselectedTextStyle,
+          selectedIndex: _selectedIndex,
+          onDestinationSelected: (int idx) {
+            setState(() {
+              _selectedIndex = idx;
+            });
+          },
+          destinations: destinations.keys.toList(),
         ),
         const VerticalDivider(thickness: 1, width: 1),
         Center(
