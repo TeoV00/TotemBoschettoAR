@@ -1,24 +1,25 @@
 import 'package:flutter/material.dart';
 import 'package:totem_boschetto/views/qrcode_nav_section.dart';
+import 'package:totem_boschetto/views/stats_page.dart';
 
 const selectedTextStyle = TextStyle(
   color: Colors.white,
   decoration: TextDecoration.underline,
   decorationThickness: 1,
-  fontSize: 30,
+  fontSize: 36,
   fontWeight: FontWeight.w700,
 );
 
 const unselectedTextStyle = TextStyle(
   color: Colors.black,
-  fontSize: 24,
+  fontSize: 30,
   fontWeight: FontWeight.w700,
 );
 
 // TODO: create and set pages linked to NavigationRailDestination
 Map<NavigationRailDestination, Widget> destinations = {
   noIconDestinationRail("Home"): Text("home page"),
-  noIconDestinationRail("Statistiche"): Text("Stats page "),
+  noIconDestinationRail("Statistiche"): StatisticPage(),
   noIconDestinationRail("Informazioni"): Text("Info page"),
 };
 
@@ -38,13 +39,14 @@ class NavRailMenu extends StatefulWidget {
 }
 
 class _NavRailMenuState extends State<NavRailMenu> {
-  int _selectedIndex = 0;
+  int _selectedIndex = 1;
 
   @override
   Widget build(BuildContext context) {
     var screenSize = MediaQuery.of(context).size;
-    var navRailWidth = screenSize.width * 0.2;
+    var navRailWidth = 320.0; //screenSize.width * 0.25;
     var emptyLeadingSpace = screenSize.height * 0.2;
+
     return Row(
       children: [
         NavigationRail(
@@ -71,9 +73,9 @@ class _NavRailMenuState extends State<NavRailMenu> {
           destinations: destinations.keys.toList(),
         ),
         const VerticalDivider(thickness: 1, width: 1),
-        Center(
+        Expanded(
           child: destinations.values.elementAt(_selectedIndex),
-        )
+        ),
       ],
     );
   }
