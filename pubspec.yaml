@@ -16,10 +16,13 @@ dev_dependencies:
   flutter_lints: ^2.0.0
 
 flutter:
+  fonts:
+  - family: Inter
+    fonts:
+      - asset: assets/fonts/Inter-Thin.ttf
   uses-material-design: true
+
 
 assets:
   - assets/icons/
   - assets/images/
-
-
