@@ -19,10 +19,12 @@ flutter:
   fonts:
   - family: Inter
     fonts:
-      - asset: assets/fonts/Inter-Thin.ttf
+      - asset: assets/fonts/Inter-bold.ttf
   uses-material-design: true
 
 
 assets:
   - assets/icons/
+  - assets/icons/statistics/
   - assets/images/
+
