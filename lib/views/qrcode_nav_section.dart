@@ -18,6 +18,7 @@ Widget showingCode = Stack(
       alignment: Alignment.bottomCenter,
     ),
     Image.asset(
+      //TODO: set qr code associated to the totem and linked to firebase
       "/icons/demo-qr.png",
       height: qrcodeSize,
       alignment: Alignment.bottomCenter,
@@ -46,23 +47,30 @@ class _QrCodeNavSectionState extends State<QrCodeNavSection> {
           GestureDetector(
             onTap: () => _updateQrIcon(),
             child: AnimatedSwitcher(
-              duration: const Duration(milliseconds: 400),
+              duration: const Duration(milliseconds: 200),
+              switchInCurve: Curves.fastOutSlowIn,
               transitionBuilder: (Widget child, Animation<double> animation) =>
-                  ScaleTransition(
-                scale: animation,
+                  FadeTransition(
+                opacity: animation,
                 child: child,
               ),
               child: _currentIcon,
             ),
           ),
           Padding(
-            padding: const EdgeInsets.all(10),
-            child: Text(
-              _showQr
-                  ? "Apri l’app, vai nel profilo e scansiona il qr"
-                  : "Deposita progressi APP",
-              style: const TextStyle(fontSize: 22, fontWeight: FontWeight.w700),
-              overflow: TextOverflow.ellipsis,
+            padding: const EdgeInsets.all(20),
+            child: SizedBox(
+              width: 320,
+              height: 50,
+              child: Text(
+                _showQr
+                    ? "Apri l’app, vai nel profilo e scansiona il qr"
+                    : "Deposita progressi APP",
+                style:
+                    const TextStyle(fontSize: 22, fontWeight: FontWeight.w700),
+                overflow: TextOverflow.visible,
+                textAlign: TextAlign.center,
+              ),
             ),
           )
         ],
