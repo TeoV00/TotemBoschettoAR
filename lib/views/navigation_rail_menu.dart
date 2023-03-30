@@ -1,4 +1,8 @@
+import 'dart:math';
+
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/svg.dart';
+import 'package:totem_boschetto/views/bottom_grass.dart';
 import 'package:totem_boschetto/views/qrcode_nav_section.dart';
 import 'package:totem_boschetto/views/stats_page.dart';
 
@@ -74,8 +78,27 @@ class _NavRailMenuState extends State<NavRailMenu> {
         ),
         const VerticalDivider(thickness: 1, width: 1),
         Expanded(
-          child: destinations.values.elementAt(_selectedIndex),
+          child: _overlayGrass(destinations.values.elementAt(_selectedIndex)),
         ),
+      ],
+    );
+  }
+
+  Widget _overlayGrass(Widget widget) {
+    return Stack(
+      children: [
+        widget,
+        Column(
+          children: [
+            const Spacer(),
+            SvgPicture.asset(
+              "images/grass.svg",
+              height: 60,
+              fit: BoxFit.fill,
+              alignment: Alignment.bottomCenter,
+            ),
+          ],
+        )
       ],
     );
   }
