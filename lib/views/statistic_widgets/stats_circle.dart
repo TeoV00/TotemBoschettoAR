@@ -59,8 +59,11 @@ class _StatsCircleState extends State<StatsCircle> {
         child: Padding(
           padding: const EdgeInsets.all(10.0),
           child: Column(
+            crossAxisAlignment: CrossAxisAlignment.center,
+            mainAxisAlignment: MainAxisAlignment.center,
             children: [
               _makeLabel(label),
+              const Spacer(),
               Stack(
                 alignment: Alignment.center,
                 children: [
@@ -84,7 +87,8 @@ class _StatsCircleState extends State<StatsCircle> {
                         )
                       : icon,
                 ],
-              )
+              ),
+              const Spacer(),
             ],
           ),
         ),
@@ -107,6 +111,7 @@ Widget _makeLabel(String label) {
   return Padding(
     padding: const EdgeInsets.all(8.0),
     child: Row(
+      mainAxisAlignment: MainAxisAlignment.center,
       children: [
         Text(
           label,
