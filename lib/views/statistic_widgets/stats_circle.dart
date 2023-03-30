@@ -115,7 +115,7 @@ Widget _makeLabel(String label) {
         Expanded(
           child: Text(
             label,
-            overflow: TextOverflow.visible,
+            overflow: TextOverflow.fade,
             textAlign: TextAlign.center,
             style: const TextStyle(
               color: Colors.black,

@@ -1,19 +1,22 @@
-import 'dart:math';
-
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
-import 'package:totem_boschetto/views/bottom_grass.dart';
+import 'package:totem_boschetto/views/info_page.dart';
 import 'package:totem_boschetto/views/qrcode_nav_section.dart';
 import 'package:totem_boschetto/views/stats_page.dart';
 
+/// Padding added to every pages selectable from Navigation rail
+const paddingPages = 20.0;
+
+/// Text style for selected item in navigation rail
 const selectedTextStyle = TextStyle(
   color: Colors.white,
   decoration: TextDecoration.underline,
-  decorationThickness: 1,
+  decorationThickness: 2,
   fontSize: 36,
   fontWeight: FontWeight.w700,
 );
 
+/// Text style for unselected item in navigation rail
 const unselectedTextStyle = TextStyle(
   color: Colors.black,
   fontSize: 30,
@@ -23,8 +26,8 @@ const unselectedTextStyle = TextStyle(
 // TODO: create and set pages linked to NavigationRailDestination
 Map<NavigationRailDestination, Widget> destinations = {
   noIconDestinationRail("Home"): Text("home page"),
-  noIconDestinationRail("Statistiche"): StatisticPage(),
-  noIconDestinationRail("Informazioni"): Text("Info page"),
+  noIconDestinationRail("Statistiche"): const StatisticPage(),
+  noIconDestinationRail("Informazioni"): const InfoPage(),
 };
 
 NavigationRailDestination noIconDestinationRail(String label) {
@@ -43,7 +46,7 @@ class NavRailMenu extends StatefulWidget {
 }
 
 class _NavRailMenuState extends State<NavRailMenu> {
-  int _selectedIndex = 1;
+  int _selectedIndex = 2;
 
   @override
   Widget build(BuildContext context) {
@@ -76,7 +79,6 @@ class _NavRailMenuState extends State<NavRailMenu> {
           },
           destinations: destinations.keys.toList(),
         ),
-        const VerticalDivider(thickness: 1, width: 1),
         Expanded(
           child: _overlayGrass(destinations.values.elementAt(_selectedIndex)),
         ),
@@ -84,10 +86,15 @@ class _NavRailMenuState extends State<NavRailMenu> {
     );
   }
 
+  /// Overlay a grass image on passed widget;
+  /// Grass image is aligned to bottom and is added a padding around widget
   Widget _overlayGrass(Widget widget) {
     return Stack(
       children: [
-        widget,
+        Padding(
+          padding: const EdgeInsets.all(paddingPages),
+          child: widget,
+        ),
         Column(
           children: [
             const Spacer(),
