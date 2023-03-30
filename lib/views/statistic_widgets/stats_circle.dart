@@ -1,7 +1,26 @@
 import 'package:flutter/material.dart';
 
+const textBorder = 20;
+const squareBoxRadius = 20.0;
+const descrTextSize = 22.0;
+const iconSize = 80.0;
+
 class StatsCircle extends StatefulWidget {
-  const StatsCircle({super.key});
+  final double size;
+  final Color color;
+  final double strokeWidth;
+  final Widget icon;
+  final String label;
+  final String description;
+
+  const StatsCircle(
+      {super.key,
+      required this.size,
+      required this.color,
+      required this.strokeWidth,
+      required this.icon,
+      required this.label,
+      required this.description});
 
   @override
   State<StatsCircle> createState() => _StatsCircleState();
@@ -9,43 +28,77 @@ class StatsCircle extends StatefulWidget {
 
 class _StatsCircleState extends State<StatsCircle> {
   //TODO: set this var passing from external
-  var color = const Color.fromRGBO(73, 166, 31, 1);
-  double size = 230;
-  double strokeWidht = 80; //TODO: check: it must be less than size
-  Widget icon = Image.asset("/icons/statistics/forest.png", height: 80);
-  String label = "ALBERI PIANTATI";
+  late Color color;
+  late double size;
+  late double strokeWidht; //TODO: check: it must be less than size
+  late Widget icon;
+  late String label;
+  late String description;
 
   bool infoShowed = false;
   double radius = 230;
 
   @override
+  void initState() {
+    super.initState();
+    color = widget.color;
+    size = widget.size;
+    strokeWidht = 2 * widget.strokeWidth;
+    icon = widget.icon;
+    label = widget.label;
+    description = widget.description;
+  }
+
+  @override
   Widget build(BuildContext context) {
-    return InkWell(
-      hoverColor: _getSecondaryColor(color),
-      borderRadius: BorderRadius.all(Radius.circular(radius)),
-      onTap: () {
-        setState(() {
-          infoShowed = !infoShowed;
-          radius = infoShowed ? 20.0 : size;
-        });
-      },
-      child: Padding(
-        padding: const EdgeInsets.all(20.0),
-        child: Column(
-          children: [
-            _makeLabel(label),
-            Stack(
-              alignment: Alignment.center,
-              children: [
-                _makeCircle(color, size, radius),
-                _makeCircle(Colors.white, size - strokeWidht, radius),
-                icon,
-              ],
-            )
-          ],
+    return Padding(
+      padding: const EdgeInsets.all(20.0),
+      child: InkWell(
+        hoverColor: _getSecondaryColor(color),
+        borderRadius: BorderRadius.circular(squareBoxRadius),
+        child: Padding(
+          padding: const EdgeInsets.all(10.0),
+          child: Column(
+            children: [
+              _makeLabel(label),
+              Stack(
+                alignment: Alignment.center,
+                children: [
+                  _makeCircle(color, size, radius),
+                  _makeCircle(
+                      Colors.white,
+                      infoShowed ? size - textBorder : size - strokeWidht,
+                      radius),
+                  infoShowed
+                      ? SizedBox(
+                          height: size - textBorder,
+                          width: size - textBorder,
+                          child: Padding(
+                            padding: const EdgeInsets.all(12.0),
+                            child: Text(
+                              description,
+                              style: const TextStyle(fontSize: descrTextSize),
+                              textAlign: TextAlign.center,
+                            ),
+                          ),
+                        )
+                      : icon,
+                ],
+              )
+            ],
+          ),
         ),
+        onTap: () => _toggleVisibility(),
       ),
     );
+  }
+
+  void _toggleVisibility() {
+    setState(() {
+      infoShowed = !infoShowed;
+      radius = infoShowed ? squareBoxRadius : size;
+      size = size == 230 ? 300 : 230;
+    });
   }
 }
 
