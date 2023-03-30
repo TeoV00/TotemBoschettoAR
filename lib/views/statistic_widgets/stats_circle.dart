@@ -27,7 +27,6 @@ class StatsCircle extends StatefulWidget {
 }
 
 class _StatsCircleState extends State<StatsCircle> {
-  //TODO: set this var passing from external
   late Color color;
   late double size;
   late double strokeWidht; //TODO: check: it must be less than size
@@ -113,12 +112,16 @@ Widget _makeLabel(String label) {
     child: Row(
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
-        Text(
-          label,
-          style: const TextStyle(
-            color: Colors.black,
-            fontWeight: FontWeight.bold,
-            fontSize: textSize,
+        Expanded(
+          child: Text(
+            label,
+            overflow: TextOverflow.visible,
+            textAlign: TextAlign.center,
+            style: const TextStyle(
+              color: Colors.black,
+              fontWeight: FontWeight.bold,
+              fontSize: textSize,
+            ),
           ),
         ),
         const Icon(Icons.help_outline, size: textSize),
