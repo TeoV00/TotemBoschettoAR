@@ -1,9 +1,12 @@
 import 'package:flutter/material.dart';
 
-const textBorder = 20;
+const textBorder = 20.0;
 const squareBoxRadius = 20.0;
 const descrTextSize = 22.0;
-const iconSize = 80.0;
+//Nice animation alternatives Curves.ease, Curves.bounceOut or Curves.elasticOut;
+const Curve curveAnimation = Curves.bounceOut;
+
+const Duration animationDuration = Duration(milliseconds: 400);
 
 class StatsCircle extends StatefulWidget {
   final double size;
@@ -71,20 +74,32 @@ class _StatsCircleState extends State<StatsCircle> {
                       Colors.white,
                       infoShowed ? size - textBorder : size - strokeWidht,
                       radius),
-                  infoShowed
-                      ? SizedBox(
-                          height: size - textBorder,
-                          width: size - textBorder,
-                          child: Padding(
-                            padding: const EdgeInsets.all(12.0),
-                            child: Text(
-                              description,
-                              style: const TextStyle(fontSize: descrTextSize),
-                              textAlign: TextAlign.center,
-                            ),
-                          ),
-                        )
-                      : icon,
+                  AnimatedCrossFade(
+                    firstChild: SizedBox(
+                      height: size - textBorder,
+                      width: size - textBorder,
+                      child: Padding(
+                        padding: EdgeInsets.only(
+                          top: textBorder + 90,
+                        ),
+                        child: Text(
+                          description,
+                          style: const TextStyle(fontSize: descrTextSize),
+                          textAlign: TextAlign.center,
+                        ),
+                      ),
+                    ),
+                    secondChild: const SizedBox(),
+                    crossFadeState: infoShowed
+                        ? CrossFadeState.showFirst
+                        : CrossFadeState.showSecond,
+                    duration: animationDuration,
+                  ),
+                  AnimatedSlide(
+                    duration: animationDuration,
+                    offset: Offset(0.0, infoShowed ? -1.1 : 0.0),
+                    child: icon,
+                  ),
                 ],
               ),
               const Spacer(),
@@ -131,7 +146,9 @@ Widget _makeLabel(String label) {
 }
 
 Widget _makeCircle(Color color, double size, [double? radius]) {
-  return Container(
+  return AnimatedContainer(
+    curve: curveAnimation,
+    duration: const Duration(milliseconds: 400),
     width: size,
     height: size,
     decoration: BoxDecoration(
