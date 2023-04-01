@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:totem_boschetto/views/statistic_widgets/circle_box.dart';
+import 'package:totem_boschetto/views/statistic_widgets/description_box.dart';
 
 const squareBoxRadius = 20.0;
 const descrTextSize = 22.0;
@@ -48,8 +49,9 @@ class _StatsCircleState extends State<StatsCircle> {
   @override
   Widget build(BuildContext context) {
     double size = widget.size;
-    // double _bigIconSize = size * 0.5;
-    // double _smallIconSize = _bigIconSize - (_bigIconSize * 0.2);
+    double _bigIconSize = size * 0.5;
+    double _smallIconSize = _bigIconSize - (_bigIconSize * 0.2);
+
     return Padding(
       padding: const EdgeInsets.all(20.0),
       child: InkWell(
@@ -68,26 +70,21 @@ class _StatsCircleState extends State<StatsCircle> {
                 children: [
                   CircleBox(color: widget.color, size: size, radius: _radius),
                   CircleBox(
-                      color: Colors.white,
-                      size: _infoShowed
-                          ? size - widget.strokeWidth
-                          : size - strokeWidhtCircle,
-                      radius: _radius),
-                  // _makeCircle(
-                  //     Colors.white,
-                  //     infoShowed
-                  //         ? size - widget.strokeWidth
-                  //         : size - strokeWidht,
-                  //     radius),
-                  // DescriptionBox(
-                  //     size: size,
-                  //     boxPadding: widget.strokeWidth,
-                  //     textSize: descrTextSize,
-                  //     description: widget.description,
-                  //     showText: infoShowed,
-                  //     offsetBox: EdgeInsets.only(top: _smallIconSize)),
+                    color: Colors.white,
+                    size: _infoShowed
+                        ? size - widget.strokeWidth
+                        : size - strokeWidhtCircle,
+                    radius: _radius,
+                  ),
+                  DescriptionBox(
+                      size: size,
+                      boxPadding: widget.strokeWidth,
+                      textSize: descrTextSize,
+                      description: widget.description,
+                      showText: _infoShowed,
+                      offsetBox: EdgeInsets.only(top: 70)),
                   // //TODO: make a separate icon indicator widget where pass icon and infoShowed
-                  // infoShowed
+                  // _infoShowed
                   //     ? _makeScaleAndMoveupIcon(
                   //         icon, _bigIconSize, _smallIconSize)
                   //     : _makeScaleAndMoveupIcon(

@@ -48,7 +48,7 @@ class _QrCodeNavSectionState extends State<QrCodeNavSection> {
             onTap: () => _updateQrIcon(),
             child: AnimatedSwitcher(
               duration: const Duration(milliseconds: 200),
-              switchInCurve: Curves.fastOutSlowIn,
+              switchInCurve: Curves.ease,
               transitionBuilder: (Widget child, Animation<double> animation) =>
                   FadeTransition(
                 opacity: animation,

@@ -13,7 +13,7 @@ const selectedTextStyle = TextStyle(
   decoration: TextDecoration.underline,
   decorationThickness: 2,
   fontSize: 36,
-  fontWeight: FontWeight.w700,
+  fontWeight: FontWeight.w900,
 );
 
 /// Text style for unselected item in navigation rail
@@ -46,7 +46,7 @@ class NavRailMenu extends StatefulWidget {
 }
 
 class _NavRailMenuState extends State<NavRailMenu> {
-  int _selectedIndex = 2;
+  int _selectedIndex = 1;
 
   @override
   Widget build(BuildContext context) {
