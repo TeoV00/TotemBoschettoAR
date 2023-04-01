@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:totem_boschetto/views/statistic_widgets/description_box.dart';
 
-const textBorder = 20.0;
 const squareBoxRadius = 20.0;
 const descrTextSize = 22.0;
 //Nice animation alternatives Curves.ease, Curves.bounceOut or Curves.elasticOut;
@@ -35,7 +35,6 @@ class _StatsCircleState extends State<StatsCircle> {
   late double strokeWidht; //TODO: check: it must be less than size
   late Widget icon;
   late String label;
-  late String description;
   late double _bigIconSize;
   late double _smallIconSize;
 
@@ -48,7 +47,6 @@ class _StatsCircleState extends State<StatsCircle> {
     color = widget.color;
     size = widget.size;
     label = widget.label;
-    description = widget.description;
     strokeWidht = 2 * widget.strokeWidth;
     //TODO: make a separate widget for icon and ist animation
     icon = widget.icon;
@@ -77,29 +75,17 @@ class _StatsCircleState extends State<StatsCircle> {
                   _makeCircle(color, size, radius),
                   _makeCircle(
                       Colors.white,
-                      infoShowed ? size - textBorder : size - strokeWidht,
+                      infoShowed
+                          ? size - widget.strokeWidth
+                          : size - strokeWidht,
                       radius),
-                  AnimatedCrossFade(
-                    firstChild: SizedBox(
-                      height: size - textBorder,
-                      width: size - textBorder,
-                      child: Padding(
-                        padding: const EdgeInsets.only(
-                          top: textBorder + 90,
-                        ),
-                        child: Text(
-                          description,
-                          style: const TextStyle(fontSize: descrTextSize),
-                          textAlign: TextAlign.center,
-                        ),
-                      ),
-                    ),
-                    secondChild: const SizedBox(),
-                    crossFadeState: infoShowed
-                        ? CrossFadeState.showFirst
-                        : CrossFadeState.showSecond,
-                    duration: animationDuration,
-                  ),
+                  DescriptionBox(
+                      size: size,
+                      boxPadding: widget.strokeWidth,
+                      textSize: descrTextSize,
+                      description: widget.description,
+                      showText: infoShowed,
+                      offsetBox: EdgeInsets.only(top: _smallIconSize)),
                   //TODO: make a separate icon indicator widget where pass icon and infoShowed
                   infoShowed
                       ? _makeScaleAndMoveupIcon(
