@@ -4,7 +4,7 @@ const textBorder = 20.0;
 const squareBoxRadius = 20.0;
 const descrTextSize = 22.0;
 //Nice animation alternatives Curves.ease, Curves.bounceOut or Curves.elasticOut;
-const Curve curveAnimation = Curves.bounceOut;
+const Curve curveAnimation = Curves.ease;
 
 const Duration animationDuration = Duration(milliseconds: 400);
 
@@ -36,6 +36,8 @@ class _StatsCircleState extends State<StatsCircle> {
   late Widget icon;
   late String label;
   late String description;
+  late double _bigIconSize;
+  late double _smallIconSize;
 
   bool infoShowed = false;
   double radius = 230;
@@ -45,10 +47,13 @@ class _StatsCircleState extends State<StatsCircle> {
     super.initState();
     color = widget.color;
     size = widget.size;
-    strokeWidht = 2 * widget.strokeWidth;
-    icon = widget.icon;
     label = widget.label;
     description = widget.description;
+    strokeWidht = 2 * widget.strokeWidth;
+    //TODO: make a separate widget for icon and ist animation
+    icon = widget.icon;
+    _bigIconSize = size - 150;
+    _smallIconSize = _bigIconSize - (_bigIconSize * 0.2);
   }
 
   @override
@@ -79,7 +84,7 @@ class _StatsCircleState extends State<StatsCircle> {
                       height: size - textBorder,
                       width: size - textBorder,
                       child: Padding(
-                        padding: EdgeInsets.only(
+                        padding: const EdgeInsets.only(
                           top: textBorder + 90,
                         ),
                         child: Text(
@@ -95,11 +100,12 @@ class _StatsCircleState extends State<StatsCircle> {
                         : CrossFadeState.showSecond,
                     duration: animationDuration,
                   ),
-                  AnimatedSlide(
-                    duration: animationDuration,
-                    offset: Offset(0.0, infoShowed ? -1.1 : 0.0),
-                    child: icon,
-                  ),
+                  //TODO: make a separate icon indicator widget where pass icon and infoShowed
+                  infoShowed
+                      ? _makeScaleAndMoveupIcon(
+                          icon, _bigIconSize, _smallIconSize)
+                      : _makeScaleAndMoveupIcon(
+                          icon, _smallIconSize, _bigIconSize),
                 ],
               ),
               const Spacer(),
@@ -118,6 +124,28 @@ class _StatsCircleState extends State<StatsCircle> {
       size = size == 230 ? 300 : 230;
     });
   }
+}
+
+Widget _makeScaleAndMoveupIcon(
+  Widget icon,
+  double startSize,
+  double finalSize,
+) {
+  return TweenAnimationBuilder(
+    tween: Tween<double>(begin: startSize, end: finalSize),
+    duration: animationDuration,
+    builder: (context, size, child) {
+      return AnimatedSlide(
+        duration: animationDuration,
+        offset: Offset(0.0, startSize < finalSize ? 0.0 : -1.3),
+        child: SizedBox(
+          height: size,
+          width: size,
+          child: icon,
+        ),
+      );
+    },
+  );
 }
 
 Widget _makeLabel(String label) {
