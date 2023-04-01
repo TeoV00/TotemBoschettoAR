@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:totem_boschetto/views/statistic_widgets/description_box.dart';
+import 'package:totem_boschetto/views/statistic_widgets/circle_box.dart';
 
 const squareBoxRadius = 20.0;
 const descrTextSize = 22.0;
@@ -30,36 +30,30 @@ class StatsCircle extends StatefulWidget {
 }
 
 class _StatsCircleState extends State<StatsCircle> {
-  late Color color;
-  late double size;
-  late double strokeWidht; //TODO: check: it must be less than size
+  late double strokeWidhtCircle; //TODO: check: it must be less than size
   late Widget icon;
-  late String label;
-  late double _bigIconSize;
-  late double _smallIconSize;
-
-  bool infoShowed = false;
-  double radius = 230;
+  late double _radius;
+  bool _infoShowed = false;
 
   @override
   void initState() {
     super.initState();
-    color = widget.color;
-    size = widget.size;
-    label = widget.label;
-    strokeWidht = 2 * widget.strokeWidth;
+
+    strokeWidhtCircle = 2.5 * widget.strokeWidth;
+    _radius = widget.size;
     //TODO: make a separate widget for icon and ist animation
     icon = widget.icon;
-    _bigIconSize = size - 150;
-    _smallIconSize = _bigIconSize - (_bigIconSize * 0.2);
   }
 
   @override
   Widget build(BuildContext context) {
+    double size = widget.size;
+    // double _bigIconSize = size * 0.5;
+    // double _smallIconSize = _bigIconSize - (_bigIconSize * 0.2);
     return Padding(
       padding: const EdgeInsets.all(20.0),
       child: InkWell(
-        hoverColor: _getSecondaryColor(color),
+        hoverColor: _getSecondaryColor(widget.color),
         borderRadius: BorderRadius.circular(squareBoxRadius),
         child: Padding(
           padding: const EdgeInsets.all(10.0),
@@ -67,31 +61,37 @@ class _StatsCircleState extends State<StatsCircle> {
             crossAxisAlignment: CrossAxisAlignment.center,
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              _makeLabel(label),
+              _makeLabel(widget.label),
               const Spacer(),
               Stack(
                 alignment: Alignment.center,
                 children: [
-                  _makeCircle(color, size, radius),
-                  _makeCircle(
-                      Colors.white,
-                      infoShowed
+                  CircleBox(color: widget.color, size: size, radius: _radius),
+                  CircleBox(
+                      color: Colors.white,
+                      size: _infoShowed
                           ? size - widget.strokeWidth
-                          : size - strokeWidht,
-                      radius),
-                  DescriptionBox(
-                      size: size,
-                      boxPadding: widget.strokeWidth,
-                      textSize: descrTextSize,
-                      description: widget.description,
-                      showText: infoShowed,
-                      offsetBox: EdgeInsets.only(top: _smallIconSize)),
-                  //TODO: make a separate icon indicator widget where pass icon and infoShowed
-                  infoShowed
-                      ? _makeScaleAndMoveupIcon(
-                          icon, _bigIconSize, _smallIconSize)
-                      : _makeScaleAndMoveupIcon(
-                          icon, _smallIconSize, _bigIconSize),
+                          : size - strokeWidhtCircle,
+                      radius: _radius),
+                  // _makeCircle(
+                  //     Colors.white,
+                  //     infoShowed
+                  //         ? size - widget.strokeWidth
+                  //         : size - strokeWidht,
+                  //     radius),
+                  // DescriptionBox(
+                  //     size: size,
+                  //     boxPadding: widget.strokeWidth,
+                  //     textSize: descrTextSize,
+                  //     description: widget.description,
+                  //     showText: infoShowed,
+                  //     offsetBox: EdgeInsets.only(top: _smallIconSize)),
+                  // //TODO: make a separate icon indicator widget where pass icon and infoShowed
+                  // infoShowed
+                  //     ? _makeScaleAndMoveupIcon(
+                  //         icon, _bigIconSize, _smallIconSize)
+                  //     : _makeScaleAndMoveupIcon(
+                  //         icon, _smallIconSize, _bigIconSize),
                 ],
               ),
               const Spacer(),
@@ -105,9 +105,9 @@ class _StatsCircleState extends State<StatsCircle> {
 
   void _toggleVisibility() {
     setState(() {
-      infoShowed = !infoShowed;
-      radius = infoShowed ? squareBoxRadius : size;
-      size = size == 230 ? 300 : 230;
+      _infoShowed = !_infoShowed;
+      _radius = _infoShowed ? squareBoxRadius : widget.size;
+      //size = size == _smallIconSize ? 300 : _bigIconSize;
     });
   }
 }
@@ -155,19 +155,6 @@ Widget _makeLabel(String label) {
         ),
         const Icon(Icons.help_outline, size: textSize),
       ],
-    ),
-  );
-}
-
-Widget _makeCircle(Color color, double size, [double? radius]) {
-  return AnimatedContainer(
-    curve: curveAnimation,
-    duration: const Duration(milliseconds: 400),
-    width: size,
-    height: size,
-    decoration: BoxDecoration(
-      color: color, // border color
-      borderRadius: BorderRadius.all(Radius.circular(radius ?? size)),
     ),
   );
 }
