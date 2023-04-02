@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 
+/// Animated resizing icon that move from mainIconSize to secondaryIconSize and move up of iconOffset
 class StatsIcon extends StatefulWidget {
   final Widget icon;
   final double mainIconSize;
