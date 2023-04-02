@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:totem_boschetto/views/statistic_widgets/stats_circle.dart';
 
 const statIconPath = "/icons/statistics/";
-const circleSize = 400.0;
+const circleSize = 280.0;
 
 var stat = <StatsCircle>[
   StatsCircle(

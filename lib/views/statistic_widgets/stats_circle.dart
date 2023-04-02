@@ -99,7 +99,7 @@ class _StatsCircleState extends State<StatsCircle> {
                   ),
                   ResizingIcon(
                     icon: widget.icon,
-                    transition: _infoShowed,
+                    runTransition: _infoShowed,
                     mainIconSize: mainIconSize,
                     secondaryIconSize: secondaryIconSize,
                     iconOffset: -iconElevation,

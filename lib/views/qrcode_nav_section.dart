@@ -55,6 +55,7 @@ class _QrCodeNavSectionState extends State<QrCodeNavSection> {
 
 class ScanQRIcon extends StatelessWidget {
   final bool showQR;
+  final Duration duration = const Duration(milliseconds: 200);
 
   const ScanQRIcon({super.key, required this.showQR});
   @override
@@ -64,25 +65,28 @@ class ScanQRIcon extends StatelessWidget {
       children: [
         ResizingIcon(
           icon: Image.asset("/icons/empty-vase.png"),
-          transition: showQR,
+          runTransition: showQR,
           mainIconSize: iconSize * 0.6, //initial size
           secondaryIconSize: iconSize * 1.2, // final size
           iconOffset: 0,
+          duration: duration,
         ),
         ResizingIcon(
           icon: Image.asset("/icons/down-arrow.png"),
-          transition: !showQR,
+          runTransition: !showQR,
           mainIconSize: 0, //initial size
           secondaryIconSize: 80, // final size
           iconOffset: -1,
+          duration: duration,
         ),
         ResizingIcon(
           //TODO: set qr code associated to the totem and linked to firebase
           icon: Image.asset("/icons/demo-qr.png"),
-          transition: showQR,
+          runTransition: showQR,
           mainIconSize: 0, //initial size
           secondaryIconSize: qrcodeSize * 1.2, // final size
           iconOffset: 0,
+          duration: duration,
         ),
       ],
     );
