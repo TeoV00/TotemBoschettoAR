@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:totem_boschetto/views/statistic_widgets/circle_box.dart';
 import 'package:totem_boschetto/views/statistic_widgets/description_box.dart';
+import 'package:totem_boschetto/views/statistic_widgets/stats_icon.dart';
 
 const squareBoxRadius = 20.0;
 const descrTextSize = 22.0;
 //Nice animation alternatives Curves.ease, Curves.bounceOut or Curves.elasticOut;
 const Curve curveAnimation = Curves.ease;
-
 const Duration animationDuration = Duration(milliseconds: 400);
 
 class StatsCircle extends StatefulWidget {
@@ -32,7 +32,6 @@ class StatsCircle extends StatefulWidget {
 
 class _StatsCircleState extends State<StatsCircle> {
   late double strokeWidhtCircle; //TODO: check: it must be less than size
-  late Widget icon;
   late double _radius;
   bool _infoShowed = false;
 
@@ -42,15 +41,22 @@ class _StatsCircleState extends State<StatsCircle> {
 
     strokeWidhtCircle = 2.5 * widget.strokeWidth;
     _radius = widget.size;
-    //TODO: make a separate widget for icon and ist animation
-    icon = widget.icon;
   }
 
   @override
   Widget build(BuildContext context) {
     double size = widget.size;
-    double _bigIconSize = size * 0.5;
-    double _smallIconSize = _bigIconSize - (_bigIconSize * 0.2);
+    double mainIconSize = widget.size * 0.5;
+    double secondaryIconSize = (size - widget.strokeWidth) * 0.2;
+
+    /// top padding of secondaryIcon
+    double topPaddingIcon = 10.0;
+
+    double elevationPadding = topPaddingIcon / secondaryIconSize;
+
+    /// percentage of elevation for secondaryIcon
+    double iconElevation =
+        (mainIconSize / secondaryIconSize).floorToDouble() - elevationPadding;
 
     return Padding(
       padding: const EdgeInsets.all(20.0),
@@ -77,18 +83,21 @@ class _StatsCircleState extends State<StatsCircle> {
                     radius: _radius,
                   ),
                   DescriptionBox(
-                      size: size,
-                      boxPadding: widget.strokeWidth,
-                      textSize: descrTextSize,
-                      description: widget.description,
-                      showText: _infoShowed,
-                      offsetBox: EdgeInsets.only(top: 70)),
-                  // //TODO: make a separate icon indicator widget where pass icon and infoShowed
-                  // _infoShowed
-                  //     ? _makeScaleAndMoveupIcon(
-                  //         icon, _bigIconSize, _smallIconSize)
-                  //     : _makeScaleAndMoveupIcon(
-                  //         icon, _smallIconSize, _bigIconSize),
+                    size: size,
+                    boxPadding: widget.strokeWidth,
+                    textSize: descrTextSize,
+                    description: widget.description,
+                    showText: _infoShowed,
+                    offsetBox: EdgeInsets.only(
+                        top: secondaryIconSize + topPaddingIcon * 2),
+                  ),
+                  StatsIcon(
+                    icon: widget.icon,
+                    transition: _infoShowed,
+                    mainIconSize: mainIconSize,
+                    secondaryIconSize: secondaryIconSize,
+                    iconOffset: -iconElevation,
+                  )
                 ],
               ),
               const Spacer(),
@@ -104,31 +113,8 @@ class _StatsCircleState extends State<StatsCircle> {
     setState(() {
       _infoShowed = !_infoShowed;
       _radius = _infoShowed ? squareBoxRadius : widget.size;
-      //size = size == _smallIconSize ? 300 : _bigIconSize;
     });
   }
-}
-
-Widget _makeScaleAndMoveupIcon(
-  Widget icon,
-  double startSize,
-  double finalSize,
-) {
-  return TweenAnimationBuilder(
-    tween: Tween<double>(begin: startSize, end: finalSize),
-    duration: animationDuration,
-    builder: (context, size, child) {
-      return AnimatedSlide(
-        duration: animationDuration,
-        offset: Offset(0.0, startSize < finalSize ? 0.0 : -1.3),
-        child: SizedBox(
-          height: size,
-          width: size,
-          child: icon,
-        ),
-      );
-    },
-  );
 }
 
 Widget _makeLabel(String label) {
