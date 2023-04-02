@@ -1,13 +1,14 @@
+
 import 'package:flutter/material.dart';
 
 /// Animated resizing icon that move from mainIconSize to secondaryIconSize and move up of iconOffset
-class StatsIcon extends StatefulWidget {
+class ResizingIcon extends StatefulWidget {
   final Widget icon;
   final double mainIconSize;
   final double secondaryIconSize;
   final double iconOffset;
   final bool transition;
-  const StatsIcon({
+  const ResizingIcon({
     super.key,
     required this.icon,
     required this.mainIconSize,
@@ -17,10 +18,10 @@ class StatsIcon extends StatefulWidget {
   });
 
   @override
-  State<StatefulWidget> createState() => _StatsIconState();
+  State<StatefulWidget> createState() => _ResizingIconState();
 }
 
-class _StatsIconState extends State<StatsIcon> {
+class _ResizingIconState extends State<ResizingIcon> {
   late double animationStart;
   late double animationStop;
 
