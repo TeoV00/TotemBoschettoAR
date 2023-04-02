@@ -16,6 +16,7 @@ class StatsCircle extends StatefulWidget {
   final Widget icon;
   final String label;
   final String description;
+  final String value;
 
   const StatsCircle(
       {super.key,
@@ -24,7 +25,8 @@ class StatsCircle extends StatefulWidget {
       required this.strokeWidth,
       required this.icon,
       required this.label,
-      required this.description});
+      required this.description,
+      required this.value});
 
   @override
   State<StatsCircle> createState() => _StatsCircleState();
@@ -69,7 +71,11 @@ class _StatsCircleState extends State<StatsCircle> {
             crossAxisAlignment: CrossAxisAlignment.center,
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              _makeLabel(widget.label),
+              _makeLabel(
+                widget.label,
+                Icon(_infoShowed ? Icons.cancel_outlined : Icons.help_outline,
+                    size: 40),
+              ),
               const Spacer(),
               Stack(
                 alignment: Alignment.center,
@@ -97,9 +103,11 @@ class _StatsCircleState extends State<StatsCircle> {
                     mainIconSize: mainIconSize,
                     secondaryIconSize: secondaryIconSize,
                     iconOffset: -iconElevation,
-                  )
+                  ),
                 ],
               ),
+              const Spacer(),
+              _makeLabel(widget.value),
               const Spacer(),
             ],
           ),
@@ -117,7 +125,7 @@ class _StatsCircleState extends State<StatsCircle> {
   }
 }
 
-Widget _makeLabel(String label) {
+Widget _makeLabel(String label, [Widget? rightSideWidget]) {
   const textSize = 30.0;
   return Padding(
     padding: const EdgeInsets.all(8.0),
@@ -136,7 +144,7 @@ Widget _makeLabel(String label) {
             ),
           ),
         ),
-        const Icon(Icons.help_outline, size: textSize),
+        rightSideWidget ?? const SizedBox(),
       ],
     ),
   );

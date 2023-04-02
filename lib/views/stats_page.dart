@@ -13,6 +13,7 @@ var stat = <StatsCircle>[
     icon: Image.asset("${statIconPath}forest.png"),
     size: circleSize,
     strokeWidth: circleSize * 0.1,
+    value: '300',
   ),
 ];
 
