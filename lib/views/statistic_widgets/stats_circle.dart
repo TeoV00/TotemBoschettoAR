@@ -84,7 +84,7 @@ class _StatsCircleState extends State<StatsCircle> {
                   ),
                   DescriptionBox(
                     size: size,
-                    boxPadding: widget.strokeWidth,
+                    boxPadding: 30,
                     textSize: descrTextSize,
                     description: widget.description,
                     showText: _infoShowed,

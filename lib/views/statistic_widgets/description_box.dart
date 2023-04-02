@@ -31,14 +31,12 @@ class _DescriptionBoxState extends State<DescriptionBox> {
         height: textBoxSize,
         width: textBoxSize,
         child: Padding(
-          padding: widget.offsetBox ?? const EdgeInsets.all(0),
-          child: Padding(
-            padding: EdgeInsets.all(widget.boxPadding),
-            child: Text(
-              widget.description,
-              style: TextStyle(fontSize: widget.textSize),
-              textAlign: TextAlign.center,
-            ),
+          padding: EdgeInsets.all(widget.boxPadding) +
+              (widget.offsetBox ?? const EdgeInsets.all(0)),
+          child: Text(
+            widget.description,
+            style: TextStyle(fontSize: widget.textSize),
+            textAlign: TextAlign.center,
           ),
         ),
       ),
