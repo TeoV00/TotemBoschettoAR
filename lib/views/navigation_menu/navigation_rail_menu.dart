@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:totem_boschetto/views/info_page.dart';
-import 'package:totem_boschetto/views/qrcode_nav_section.dart';
+import 'package:totem_boschetto/views/navigation_menu/qrcode_nav_section.dart';
 import 'package:totem_boschetto/views/stats_page.dart';
 
 /// Padding added to every pages selectable from Navigation rail
