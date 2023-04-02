@@ -26,14 +26,14 @@ class _DescriptionBoxState extends State<DescriptionBox> {
   @override
   Widget build(BuildContext context) {
     var textBoxSize = widget.size - widget.boxPadding;
-    return Padding(
-      padding: EdgeInsets.all(widget.boxPadding + 50),
-      child: AnimatedCrossFade(
-        firstChild: SizedBox(
-          height: textBoxSize,
-          width: textBoxSize,
+    return AnimatedCrossFade(
+      firstChild: SizedBox(
+        height: textBoxSize,
+        width: textBoxSize,
+        child: Padding(
+          padding: widget.offsetBox ?? const EdgeInsets.all(0),
           child: Padding(
-            padding: widget.offsetBox ?? const EdgeInsets.all(0),
+            padding: EdgeInsets.all(widget.boxPadding),
             child: Text(
               widget.description,
               style: TextStyle(fontSize: widget.textSize),
@@ -41,12 +41,12 @@ class _DescriptionBoxState extends State<DescriptionBox> {
             ),
           ),
         ),
-        secondChild: const SizedBox(),
-        crossFadeState: widget.showText
-            ? CrossFadeState.showFirst
-            : CrossFadeState.showSecond,
-        duration: const Duration(milliseconds: 400),
       ),
+      secondChild: const SizedBox(),
+      crossFadeState: widget.showText
+          ? CrossFadeState.showFirst
+          : CrossFadeState.showSecond,
+      duration: const Duration(milliseconds: 400),
     );
   }
 }
