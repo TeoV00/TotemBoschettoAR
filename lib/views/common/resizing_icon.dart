@@ -1,7 +1,7 @@
-
 import 'package:flutter/material.dart';
 
 /// Animated resizing icon that move from mainIconSize to secondaryIconSize and move up of iconOffset
+/// [iconOffset] final vertical offset. Value indicates how many [iconOffset ]* [secondaryOffset] pixels
 class ResizingIcon extends StatefulWidget {
   final Widget icon;
   final double mainIconSize;

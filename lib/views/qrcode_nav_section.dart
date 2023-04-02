@@ -4,29 +4,6 @@ import 'package:totem_boschetto/views/common/resizing_icon.dart';
 const double iconSize = 160;
 const double qrcodeSize = 100;
 
-Widget hiddenCode = Image.asset(
-  "/icons/push-data-icon.png",
-  height: iconSize,
-  alignment: Alignment.bottomCenter,
-);
-
-Widget showingCode = Stack(
-  alignment: Alignment.center,
-  children: [
-    Image.asset(
-      "/icons/empty-vase.png",
-      height: iconSize,
-      alignment: Alignment.bottomCenter,
-    ),
-    Image.asset(
-      //TODO: set qr code associated to the totem and linked to firebase
-      "/icons/demo-qr.png",
-      height: qrcodeSize,
-      alignment: Alignment.bottomCenter,
-    ),
-  ],
-);
-
 class QrCodeNavSection extends StatefulWidget {
   const QrCodeNavSection({super.key});
 
@@ -36,7 +13,6 @@ class QrCodeNavSection extends StatefulWidget {
 
 class _QrCodeNavSectionState extends State<QrCodeNavSection> {
   bool _showQr = false;
-  Widget _currentIcon = hiddenCode;
 
   @override
   Widget build(BuildContext context) {
@@ -73,7 +49,6 @@ class _QrCodeNavSectionState extends State<QrCodeNavSection> {
   void _updateQrIcon() {
     setState(() {
       _showQr = !_showQr;
-      _currentIcon = _showQr ? showingCode : hiddenCode;
     });
   }
 }
@@ -90,16 +65,23 @@ class ScanQRIcon extends StatelessWidget {
         ResizingIcon(
           icon: Image.asset("/icons/empty-vase.png"),
           transition: showQR,
-          mainIconSize: iconSize * 0.5, //initial size
-          secondaryIconSize: iconSize, // final size
+          mainIconSize: iconSize * 0.6, //initial size
+          secondaryIconSize: iconSize * 1.2, // final size
           iconOffset: 0,
+        ),
+        ResizingIcon(
+          icon: Image.asset("/icons/down-arrow.png"),
+          transition: !showQR,
+          mainIconSize: 0, //initial size
+          secondaryIconSize: 80, // final size
+          iconOffset: -1,
         ),
         ResizingIcon(
           //TODO: set qr code associated to the totem and linked to firebase
           icon: Image.asset("/icons/demo-qr.png"),
           transition: showQR,
           mainIconSize: 0, //initial size
-          secondaryIconSize: qrcodeSize, // final size
+          secondaryIconSize: qrcodeSize * 1.2, // final size
           iconOffset: 0,
         ),
       ],
