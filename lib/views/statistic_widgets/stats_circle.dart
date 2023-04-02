@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:totem_boschetto/views/common/animated_icon.dart';
+import 'package:totem_boschetto/views/common/resizing_icon.dart';
 import 'package:totem_boschetto/views/statistic_widgets/circle_box.dart';
 import 'package:totem_boschetto/views/statistic_widgets/description_box.dart';
 
@@ -97,7 +97,7 @@ class _StatsCircleState extends State<StatsCircle> {
                     offsetBox: EdgeInsets.only(
                         top: secondaryIconSize + topPaddingIcon * 2),
                   ),
-                  StatsIcon(
+                  ResizingIcon(
                     icon: widget.icon,
                     transition: _infoShowed,
                     mainIconSize: mainIconSize,

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:totem_boschetto/views/common/resizing_icon.dart';
 
 const double iconSize = 160;
 const double qrcodeSize = 100;
@@ -46,16 +47,7 @@ class _QrCodeNavSectionState extends State<QrCodeNavSection> {
         children: [
           GestureDetector(
             onTap: () => _updateQrIcon(),
-            child: AnimatedSwitcher(
-              duration: const Duration(milliseconds: 200),
-              switchInCurve: Curves.ease,
-              transitionBuilder: (Widget child, Animation<double> animation) =>
-                  FadeTransition(
-                opacity: animation,
-                child: child,
-              ),
-              child: _currentIcon,
-            ),
+            child: ScanQRIcon(showQR: _showQr),
           ),
           Padding(
             padding: const EdgeInsets.all(20),
@@ -83,5 +75,34 @@ class _QrCodeNavSectionState extends State<QrCodeNavSection> {
       _showQr = !_showQr;
       _currentIcon = _showQr ? showingCode : hiddenCode;
     });
+  }
+}
+
+class ScanQRIcon extends StatelessWidget {
+  final bool showQR;
+
+  const ScanQRIcon({super.key, required this.showQR});
+  @override
+  Widget build(BuildContext context) {
+    return Stack(
+      alignment: Alignment.center,
+      children: [
+        ResizingIcon(
+          icon: Image.asset("/icons/empty-vase.png"),
+          transition: showQR,
+          mainIconSize: iconSize * 0.5, //initial size
+          secondaryIconSize: iconSize, // final size
+          iconOffset: 0,
+        ),
+        ResizingIcon(
+          //TODO: set qr code associated to the totem and linked to firebase
+          icon: Image.asset("/icons/demo-qr.png"),
+          transition: showQR,
+          mainIconSize: 0, //initial size
+          secondaryIconSize: qrcodeSize, // final size
+          iconOffset: 0,
+        ),
+      ],
+    );
   }
 }
