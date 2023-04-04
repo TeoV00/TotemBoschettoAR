@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
-import 'home_page/details_box.dart';
+import 'package:totem_boschetto/views/home_page/dropdown_container.dart';
 
-const secondaryColor = Color.fromRGBO(186, 250, 137, 1);
+const Color secondaryColor = Color.fromRGBO(186, 250, 137, 1);
+
+///This padding set distance of dropdown details box by right side of screen
+const double leftOffsetInfoMenu = 30.0;
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
@@ -20,13 +23,14 @@ class _HomePageState extends State<HomePage> {
       child: Center(
         child: Stack(children: [
           Padding(
-            padding: const EdgeInsets.only(right: 10.0),
+            padding: const EdgeInsets.only(right: leftOffsetInfoMenu),
             child: Column(
               children: [
                 Row(
                   mainAxisAlignment: MainAxisAlignment.end,
                   children: [
-                    DetailsBox(
+                    //TODO: put here woods
+                    DropdownContainer(
                       showDetails: showDetails,
                     ),
                   ],

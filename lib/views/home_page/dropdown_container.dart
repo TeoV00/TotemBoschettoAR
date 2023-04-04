@@ -21,15 +21,15 @@ BoxDecoration boxStyle = const BoxDecoration(
   ],
 );
 
-class DetailsBox extends StatefulWidget {
+class DropdownContainer extends StatefulWidget {
   final bool showDetails;
-  const DetailsBox({super.key, required this.showDetails});
+  const DropdownContainer({super.key, required this.showDetails});
 
   @override
-  State<DetailsBox> createState() => _DetailsBoxState();
+  State<DropdownContainer> createState() => _DropdownContainerState();
 }
 
-class _DetailsBoxState extends State<DetailsBox> {
+class _DropdownContainerState extends State<DropdownContainer> {
   late bool expanded;
   late bool isContentShowing;
   late double height;
