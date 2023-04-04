@@ -29,7 +29,7 @@ class DetailsContent extends StatelessWidget {
             ),
             Text(
               nickname,
-              style: TextStyle(fontSize: 34, fontWeight: FontWeight.bold),
+              style: const TextStyle(fontSize: 34, fontWeight: FontWeight.bold),
             ),
             SvgPicture.asset(
               "icons/stake.svg",
@@ -37,19 +37,51 @@ class DetailsContent extends StatelessWidget {
             )
           ],
         ),
-        SizedBox(
-          height: 200,
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.end,
-            children: [
-              Stack(
-                children: [
-                  SvgPicture.asset("$iconPath/shelf.svg"),
-                  SvgPicture.asset("$iconLevelPath$level.svg", width: 120),
-                ],
-              ),
-            ],
-          ),
+        Column(
+          mainAxisAlignment: MainAxisAlignment.end,
+          children: [
+            Stack(
+              alignment: Alignment.bottomCenter,
+              children: [
+                SvgPicture.asset(
+                  "$iconPath/shelf.svg",
+                  height: 52,
+                  width: 200,
+                ),
+                Padding(
+                  padding: const EdgeInsets.only(bottom: 35),
+                  child:
+                      SvgPicture.asset("$iconLevelPath$level.svg", width: 120),
+                ),
+                Container(
+                  decoration: const BoxDecoration(
+                    color: Colors.white,
+                    borderRadius: BorderRadius.all(Radius.circular(5)),
+                    boxShadow: [
+                      BoxShadow(
+                        blurRadius: 8,
+                        offset: Offset(0, 3),
+                        color: Color.fromRGBO(0, 0, 0, 0.3),
+                      )
+                    ],
+                  ),
+                  child: Padding(
+                    padding: const EdgeInsets.symmetric(
+                      vertical: 2.0,
+                      horizontal: 15,
+                    ),
+                    child: Text(
+                      "Lv. $level",
+                      style: const TextStyle(
+                        fontWeight: FontWeight.w500,
+                        fontSize: 25,
+                      ),
+                    ),
+                  ),
+                ),
+              ],
+            ),
+          ],
         )
       ]),
     );
