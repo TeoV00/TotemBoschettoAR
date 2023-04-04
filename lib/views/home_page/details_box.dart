@@ -3,12 +3,14 @@ import 'package:flutter_svg/svg.dart';
 
 const double width = 325.0;
 const double expandedHeight = 525.0;
-const double reducedHeight = 50.0;
+const double reducedHeight = 30.0;
+const Radius circularRadius = Radius.circular(12);
 
-BoxDecoration boxStyle = BoxDecoration(
+BoxDecoration boxStyle = const BoxDecoration(
   color: Colors.white,
-  borderRadius: BorderRadius.circular(12),
-  boxShadow: const [
+  borderRadius: BorderRadius.only(
+      bottomLeft: circularRadius, bottomRight: circularRadius), //,
+  boxShadow: [
     BoxShadow(
       color: Color.fromRGBO(0, 0, 0, 0.25),
       spreadRadius: 2,
