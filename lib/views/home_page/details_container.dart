@@ -6,6 +6,7 @@ const double width = 325.0;
 const double expandedHeight = 525.0;
 const double reducedHeight = 30.0;
 const Radius circularRadius = Radius.circular(12);
+const Duration animationDuration = Duration(milliseconds: 300);
 
 BoxDecoration boxStyle = const BoxDecoration(
   color: Colors.white,
@@ -52,7 +53,7 @@ class _DetailsBoxState extends State<DetailsBox> {
           width: width,
           height: height,
           decoration: boxStyle,
-          duration: const Duration(milliseconds: 300),
+          duration: animationDuration,
           onEnd: () {
             setState(() {
               isContentShowing = height >= expandedHeight;
@@ -72,7 +73,7 @@ class _DetailsBoxState extends State<DetailsBox> {
               end: expanded ? expandedHeight : reducedHeight,
             ),
             curve: Curves.easeIn,
-            duration: const Duration(milliseconds: 300),
+            duration: animationDuration,
             builder: (BuildContext context, double animHeight, child) {
               return Padding(
                 padding: EdgeInsets.only(top: animHeight - 25),
