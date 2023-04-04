@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/svg.dart';
+import 'package:totem_boschetto/views/home_page/details_header.dart';
 import 'package:totem_boschetto/views/home_page/level_shelf.dart';
 
 class DetailsContent extends StatelessWidget {
@@ -19,26 +19,12 @@ class DetailsContent extends StatelessWidget {
   Widget build(BuildContext context) {
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 35, vertical: 15.0),
-      child: Column(children: [
-        Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: [
-            SvgPicture.asset(
-              "icons/stake.svg",
-              height: 65,
-            ),
-            Text(
-              nickname,
-              style: const TextStyle(fontSize: 34, fontWeight: FontWeight.bold),
-            ),
-            SvgPicture.asset(
-              "icons/stake.svg",
-              height: 65,
-            )
-          ],
-        ),
-        LevelShelf(level: level)
-      ]),
+      child: Column(
+        children: [
+          DeatilsHeader(nickname: nickname),
+          LevelShelf(level: level),
+        ],
+      ),
     );
   }
 }
