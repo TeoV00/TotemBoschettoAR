@@ -11,12 +11,12 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
-  bool showDetails = true;
+  bool showDetails = false;
 
   @override
   Widget build(BuildContext context) {
     return Container(
-      color: Color.fromRGBO(236, 255, 221, 1),
+      color: const Color.fromRGBO(236, 255, 221, 1),
       child: Center(
         child: Stack(children: [
           Padding(
