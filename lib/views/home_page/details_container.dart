@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:totem_boschetto/views/home_page/details_content.dart';
 
 const double width = 325.0;
 const double expandedHeight = 525.0;
@@ -31,12 +32,13 @@ class _DetailsBoxState extends State<DetailsBox> {
   late bool expanded;
   late bool isContentShowing;
   late double height;
-  final Widget contentInfo = const Text("content data");
+  final Widget contentInfo = const DetailsContent(
+      nickname: "nickname", level: 4, awareness: 1, badge: 2);
 
   @override
   void initState() {
     super.initState();
-    expanded = widget.showDetails;
+    expanded = true; //widget.showDetails;
     isContentShowing = expanded;
     height = expanded ? expandedHeight : reducedHeight;
   }
