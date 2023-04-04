@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:totem_boschetto/views/home_page/content_elements/details_header.dart';
-import 'package:totem_boschetto/views/home_page/content_elements/details_user.dart';
-import 'package:totem_boschetto/views/home_page/content_elements/level_shelf.dart';
+import 'package:totem_boschetto/views/home_page/dropdown_view/content_elements/details_header.dart';
+import 'package:totem_boschetto/views/home_page/dropdown_view/content_elements/details_user.dart';
+import 'package:totem_boschetto/views/home_page/dropdown_view/content_elements/level_shelf.dart';
 
 class DetailsContent extends StatelessWidget {
   final String nickname;

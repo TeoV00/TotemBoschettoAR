@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
-import 'package:totem_boschetto/views/home_page/details_content.dart';
+import 'package:totem_boschetto/views/home_page/dropdown_view/details_content.dart';
 
 const double width = 325.0;
 const double expandedHeight = 525.0;
