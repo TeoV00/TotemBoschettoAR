@@ -27,6 +27,7 @@ class DetailsBox extends StatefulWidget {
 
 class _DetailsBoxState extends State<DetailsBox> {
   late bool expanded;
+  late bool isContentShowing;
   late double height;
   final Widget contentInfo = const Text("content data");
 
@@ -34,6 +35,7 @@ class _DetailsBoxState extends State<DetailsBox> {
   void initState() {
     super.initState();
     expanded = widget.showDetails;
+    isContentShowing = expanded;
     height = expanded ? expandedHeight : reducedHeight;
   }
 
@@ -47,15 +49,25 @@ class _DetailsBoxState extends State<DetailsBox> {
           height: height,
           decoration: boxStyle,
           duration: const Duration(milliseconds: 300),
-          child: expanded ? _makeContent(contentInfo) : const SizedBox(),
+          onEnd: () {
+            setState(() {
+              isContentShowing = height >= expandedHeight;
+            });
+          },
+          child:
+              isContentShowing ? _makeContent(contentInfo) : const SizedBox(),
         ),
         GestureDetector(
           onTap: () => _toggleVisbility(),
+          onLongPress: () {
+            debugPrint("long press");
+          },
           child: TweenAnimationBuilder(
             tween: Tween<double>(
               begin: expanded ? reducedHeight : expandedHeight,
               end: expanded ? expandedHeight : reducedHeight,
             ),
+            curve: Curves.easeIn,
             duration: const Duration(milliseconds: 300),
             builder: (BuildContext context, double animHeight, child) {
               return Padding(
@@ -72,6 +84,7 @@ class _DetailsBoxState extends State<DetailsBox> {
   void _toggleVisbility() {
     setState(() {
       expanded = !expanded;
+      isContentShowing = false;
       height = expanded ? expandedHeight : reducedHeight;
     });
   }
