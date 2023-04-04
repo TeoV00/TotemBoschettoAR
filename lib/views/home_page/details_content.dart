@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:totem_boschetto/views/home_page/content_elements/details_header.dart';
+import 'package:totem_boschetto/views/home_page/content_elements/details_user.dart';
 import 'package:totem_boschetto/views/home_page/content_elements/level_shelf.dart';
 
 class DetailsContent extends StatelessWidget {
@@ -23,6 +24,11 @@ class DetailsContent extends StatelessWidget {
         children: [
           DeatilsHeader(nickname: nickname),
           LevelShelf(level: level),
+          UserDetails(
+            treesCount: 1,
+            awareness: awareness,
+            badgeCount: badge,
+          ),
         ],
       ),
     );
