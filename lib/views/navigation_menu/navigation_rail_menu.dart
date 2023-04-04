@@ -1,11 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:totem_boschetto/views/home_page.dart';
 import 'package:totem_boschetto/views/info_page.dart';
 import 'package:totem_boschetto/views/navigation_menu/qrcode_nav_section.dart';
 import 'package:totem_boschetto/views/stats_page.dart';
-
-/// Padding added to every pages selectable from Navigation rail
-const paddingPages = 20.0;
 
 /// Text style for selected item in navigation rail
 const selectedTextStyle = TextStyle(
@@ -23,9 +21,8 @@ const unselectedTextStyle = TextStyle(
   fontWeight: FontWeight.w700,
 );
 
-// TODO: create and set pages linked to NavigationRailDestination
 Map<NavigationRailDestination, Widget> destinations = {
-  noIconDestinationRail("Home"): Text("home page"),
+  noIconDestinationRail("Home"): const HomePage(),
   noIconDestinationRail("Statistiche"): const StatisticPage(),
   noIconDestinationRail("Informazioni"): const InfoPage(),
 };
@@ -46,7 +43,7 @@ class NavRailMenu extends StatefulWidget {
 }
 
 class _NavRailMenuState extends State<NavRailMenu> {
-  int _selectedIndex = 1;
+  int _selectedIndex = 0;
 
   @override
   Widget build(BuildContext context) {
@@ -87,14 +84,11 @@ class _NavRailMenuState extends State<NavRailMenu> {
   }
 
   /// Overlay a grass image on passed widget;
-  /// Grass image is aligned to bottom and is added a padding around widget
+  /// Grass image is aligned to bottom
   Widget _overlayGrass(Widget widget) {
     return Stack(
       children: [
-        Padding(
-          padding: const EdgeInsets.all(paddingPages),
-          child: widget,
-        ),
+        widget,
         Column(
           children: [
             const Spacer(),
