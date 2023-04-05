@@ -22,7 +22,7 @@ class DetailsContent extends StatelessWidget {
           LevelShelf(level: userData!.userProgress.round()),
           UserDetails(
             treesCount: userData!.getTreesCount(),
-            co2: userData.co2Avoided,
+            co2: userData!.co2Avoided,
             badgeCount: userData!.badgeCount,
           ),
         ],

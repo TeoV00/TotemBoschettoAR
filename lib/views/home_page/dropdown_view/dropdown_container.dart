@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:totem_boschetto/model/user_data.dart';
 import 'package:totem_boschetto/views/home_page/dropdown_view/details_content.dart';
 
 const double width = 325.0;
@@ -23,7 +24,12 @@ BoxDecoration boxStyle = const BoxDecoration(
 
 class DropdownContainer extends StatefulWidget {
   final bool showDetails;
-  const DropdownContainer({super.key, required this.showDetails});
+  final UserData? userData;
+  const DropdownContainer({
+    super.key,
+    required this.showDetails,
+    this.userData,
+  });
 
   @override
   State<DropdownContainer> createState() => _DropdownContainerState();
@@ -33,8 +39,6 @@ class _DropdownContainerState extends State<DropdownContainer> {
   late bool expanded;
   late bool isContentShowing;
   late double height;
-  final Widget contentInfo = const DetailsContent(
-      nickname: "nickname", level: 4, awareness: 1, badge: 2);
 
   @override
   void initState() {
@@ -59,8 +63,9 @@ class _DropdownContainerState extends State<DropdownContainer> {
               isContentShowing = height >= expandedHeight;
             });
           },
-          child:
-              isContentShowing ? _makeContent(contentInfo) : const SizedBox(),
+          child: isContentShowing
+              ? _makeContent(widget.userData)
+              : const SizedBox(),
         ),
         GestureDetector(
           onTap: () => _toggleVisbility(),
@@ -94,12 +99,16 @@ class _DropdownContainerState extends State<DropdownContainer> {
     });
   }
 
-  Widget _makeContent(Widget userInfoContent) {
+  Widget _makeContent(UserData? userData) {
     return Padding(
       padding: const EdgeInsets.only(bottom: 30.0),
       child: Column(
         children: [
-          userInfoContent,
+          userData != null
+              ? DetailsContent(
+                  userData: userData,
+                )
+              : const Text("NESSUN ALBERO SELEZIONATO"),
           const Spacer(),
           MaterialButton(
             onPressed: _toggleVisbility,

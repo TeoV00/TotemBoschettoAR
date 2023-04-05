@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:totem_boschetto/model/user_data.dart';
 import 'package:totem_boschetto/views/home_page/dropdown_view/dropdown_container.dart';
 import 'package:totem_boschetto/views/home_page/forest/forest_tree.dart';
 
@@ -16,6 +17,7 @@ class HomePage extends StatefulWidget {
 
 class _HomePageState extends State<HomePage> {
   bool showDetails = false;
+  UserData? userData;
 
   @override
   Widget build(BuildContext context) {
@@ -52,6 +54,7 @@ class _HomePageState extends State<HomePage> {
                   mainAxisAlignment: MainAxisAlignment.end,
                   children: [
                     DropdownContainer(
+                      userData: userData,
                       showDetails: showDetails,
                     ),
                   ],
