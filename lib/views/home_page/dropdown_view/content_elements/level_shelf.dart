@@ -25,7 +25,11 @@ class LevelShelf extends StatelessWidget {
             ),
             Padding(
               padding: const EdgeInsets.only(bottom: 35),
-              child: SvgPicture.asset("$iconLevelPath$level.svg", width: 120),
+              child: SizedBox(
+                  height: 150,
+                  width: 120,
+                  child:
+                      SvgPicture.asset("$iconLevelPath$level.svg", width: 120)),
             ),
             Container(
               decoration: const BoxDecoration(

@@ -69,9 +69,6 @@ class _DropdownContainerState extends State<DropdownContainer> {
         ),
         GestureDetector(
           onTap: () => _toggleVisbility(),
-          onLongPress: () {
-            debugPrint("long press");
-          },
           child: TweenAnimationBuilder(
             tween: Tween<double>(
               begin: expanded ? reducedHeight : expandedHeight,
