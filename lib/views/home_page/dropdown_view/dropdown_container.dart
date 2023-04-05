@@ -39,7 +39,7 @@ class _DropdownContainerState extends State<DropdownContainer> {
   @override
   void initState() {
     super.initState();
-    expanded = true; //widget.showDetails;
+    expanded = widget.showDetails;
     isContentShowing = expanded;
     height = expanded ? expandedHeight : reducedHeight;
   }
