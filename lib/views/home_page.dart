@@ -25,8 +25,14 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
-  bool showDetails = false;
+  late bool showDetails;
   UserData? userData;
+
+  @override
+  void initState() {
+    super.initState();
+    showDetails = false;
+  }
 
   @override
   Widget build(BuildContext context) {

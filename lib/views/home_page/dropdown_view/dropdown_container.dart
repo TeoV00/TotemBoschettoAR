@@ -23,9 +23,9 @@ BoxDecoration boxStyle = const BoxDecoration(
 );
 
 class DropdownContainer extends StatefulWidget {
-  final bool showDetails;
+  bool showDetails;
   final UserData? userData;
-  const DropdownContainer({
+  DropdownContainer({
     super.key,
     required this.showDetails,
     this.userData,
@@ -38,29 +38,29 @@ class DropdownContainer extends StatefulWidget {
 class _DropdownContainerState extends State<DropdownContainer> {
   late bool expanded;
   late bool isContentShowing;
-  late double height;
-
   @override
   void initState() {
     super.initState();
     expanded = widget.showDetails;
-    isContentShowing = expanded;
-    height = expanded ? expandedHeight : reducedHeight;
+    isContentShowing = false;
   }
 
   @override
   Widget build(BuildContext context) {
+    if (!expanded && widget.showDetails) {
+      _openContainer();
+    }
     return Stack(
       alignment: Alignment.topCenter,
       children: [
         AnimatedContainer(
           width: width,
-          height: height,
+          height: expanded ? expandedHeight : reducedHeight,
           decoration: boxStyle,
           duration: animationDuration,
           onEnd: () {
             setState(() {
-              isContentShowing = height >= expandedHeight;
+              isContentShowing = true; //height >= expandedHeight;
             });
           },
           child: isContentShowing
@@ -68,7 +68,7 @@ class _DropdownContainerState extends State<DropdownContainer> {
               : const SizedBox(),
         ),
         GestureDetector(
-          onTap: () => _toggleVisbility(),
+          onTap: () => expanded ? _closeContainer() : _openContainer(),
           child: TweenAnimationBuilder(
             tween: Tween<double>(
               begin: expanded ? reducedHeight : expandedHeight,
@@ -88,11 +88,18 @@ class _DropdownContainerState extends State<DropdownContainer> {
     );
   }
 
-  void _toggleVisbility() {
+  void _openContainer() {
     setState(() {
-      expanded = !expanded;
+      expanded = true;
       isContentShowing = false;
-      height = expanded ? expandedHeight : reducedHeight;
+    });
+  }
+
+  void _closeContainer() {
+    widget.showDetails = false;
+    setState(() {
+      expanded = false;
+      isContentShowing = false;
     });
   }
 
@@ -108,7 +115,7 @@ class _DropdownContainerState extends State<DropdownContainer> {
               : const Text("NESSUN ALBERO SELEZIONATO"),
           const Spacer(),
           MaterialButton(
-            onPressed: _toggleVisbility,
+            onPressed: _closeContainer,
             color: Colors.green[100],
             child: const Text("CHIUDI"),
           ),
