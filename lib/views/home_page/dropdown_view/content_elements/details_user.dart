@@ -7,12 +7,12 @@ const labelValStyle = TextStyle(
 
 class UserDetails extends StatelessWidget {
   final int treesCount;
-  final int awareness;
+  final double co2;
   final int badgeCount;
   const UserDetails(
       {super.key,
       required this.treesCount,
-      required this.awareness,
+      required this.co2,
       required this.badgeCount});
 
   @override
@@ -23,7 +23,9 @@ class UserDetails extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.start,
         children: [
           _getLabelValue("Alberi scoperti", treesCount),
-          _getLabelValue("Consapevolezza", awareness),
+          _getLabelValue("Co2", co2),
+          _getLabelValue("elettricità", co2),
+          _getLabelValue("altro", co2),
           _getLabelValue("N. Badge", badgeCount),
         ],
       ),
