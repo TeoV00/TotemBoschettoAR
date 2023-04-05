@@ -3,6 +3,15 @@ import 'package:totem_boschetto/model/user_data.dart';
 import 'package:totem_boschetto/views/home_page/dropdown_view/dropdown_container.dart';
 import 'package:totem_boschetto/views/home_page/forest/forest_tree.dart';
 
+var firebaseData = <UserData>[
+  UserData("Pippo", [1, 5, 8], 5, 200.89, 3),
+  UserData("TeoV00", [1, 2, 3, 8], 1, 85.00, 5),
+  UserData("michi", [1, 5, 8], 5, 200.89, 4),
+  UserData("manu", [1, 2, 3, 8], 1, 85.00, 0),
+  UserData("mamma", [1, 5, 8], 5, 200.89, 1),
+  UserData("pio", [1, 2, 3, 8], 1, 85.00, 0)
+];
+
 const Color secondaryColor = Color.fromRGBO(186, 250, 137, 1);
 
 ///This padding set distance of dropdown details box by right side of screen
@@ -29,22 +38,19 @@ class _HomePageState extends State<HomePage> {
             crossAxisCount: 20,
             mainAxisSpacing: 10,
             crossAxisSpacing: 10,
-            children: [
-              /*
-              TODO: create widget that rapresent tree of wood the
-              register gesture to open Dropdown details with selected one data
-              */
-              GestureDetector(
-                onTap: () {
-                  debugPrint("pemuto");
-                  setState(() {
-                    showDetails = !showDetails;
-                  });
-                  debugPrint("$showDetails");
-                },
-                child: const ForestTree(),
-              )
-            ],
+            children: firebaseData.map(
+              (userDataTree) {
+                return GestureDetector(
+                  onTap: () {
+                    setState(() {
+                      userData = userDataTree;
+                      showDetails = !showDetails;
+                    });
+                  },
+                  child: ForestTree(level: userDataTree.userProgress.round()),
+                );
+              },
+            ).toList(),
           ),
           Padding(
             padding: const EdgeInsets.only(right: leftOffsetInfoMenu),
