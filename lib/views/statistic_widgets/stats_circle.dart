@@ -138,9 +138,9 @@ Widget _makeLabel(String label, double textSize, [Widget? rightSideWidget]) {
     child: Row(
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
-        const Spacer(),
+        // const Spacer(),
         Expanded(
-          flex: 2,
+          // flex: 2,
           child: Text(
             label,
             overflow: TextOverflow.fade,
@@ -153,7 +153,7 @@ Widget _makeLabel(String label, double textSize, [Widget? rightSideWidget]) {
           ),
         ),
         rightSideWidget ?? const SizedBox(),
-        const Spacer(),
+        // const Spacer(),
       ],
     ),
   );
