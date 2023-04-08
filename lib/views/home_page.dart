@@ -40,23 +40,26 @@ class _HomePageState extends State<HomePage> {
       color: const Color.fromRGBO(236, 255, 221, 1),
       child: Center(
         child: Stack(children: [
-          GridView.count(
-            crossAxisCount: 20,
-            mainAxisSpacing: 10,
-            crossAxisSpacing: 10,
-            children: firebaseData.map(
-              (userDataTree) {
-                return GestureDetector(
-                  onTap: () {
-                    setState(() {
-                      userData = userDataTree;
-                      showDetails = !showDetails;
-                    });
-                  },
-                  child: ForestTree(level: userDataTree.userProgress.round()),
-                );
-              },
-            ).toList(),
+          Padding(
+            padding: const EdgeInsets.all(30.0),
+            child: GridView.count(
+              crossAxisCount: 20,
+              mainAxisSpacing: 10,
+              crossAxisSpacing: 10,
+              children: firebaseData.map(
+                (userDataTree) {
+                  return GestureDetector(
+                    onTap: () {
+                      setState(() {
+                        userData = userDataTree;
+                        showDetails = !showDetails;
+                      });
+                    },
+                    child: ForestTree(level: userDataTree.userProgress.round()),
+                  );
+                },
+              ).toList(),
+            ),
           ),
           Padding(
             padding: const EdgeInsets.only(right: leftOffsetInfoMenu),
