@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
-import 'package:totem_boschetto/model/user_data.dart';
+import 'package:totem_boschetto/model/share_data_model.dart';
 import 'package:totem_boschetto/views/home_page/dropdown_view/details_content.dart';
 
 const double width = 325.0;
@@ -24,7 +24,7 @@ BoxDecoration boxStyle = const BoxDecoration(
 
 class DropdownContainer extends StatefulWidget {
   bool showDetails;
-  final UserData? userData;
+  final SharedData? userData;
   DropdownContainer({
     super.key,
     required this.showDetails,
@@ -103,7 +103,7 @@ class _DropdownContainerState extends State<DropdownContainer> {
     });
   }
 
-  Widget _makeContent(UserData? userData) {
+  Widget _makeContent(SharedData? userData) {
     return Padding(
       padding: const EdgeInsets.only(bottom: 30.0),
       child: Column(

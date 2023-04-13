@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
-import 'package:totem_boschetto/model/user_data.dart';
+import 'package:totem_boschetto/model/share_data_model.dart';
 import 'package:totem_boschetto/views/home_page/dropdown_view/content_elements/details_header.dart';
 import 'package:totem_boschetto/views/home_page/dropdown_view/content_elements/details_user.dart';
 import 'package:totem_boschetto/views/home_page/dropdown_view/content_elements/level_shelf.dart';
 
 class DetailsContent extends StatelessWidget {
-  final UserData? userData;
+  final SharedData? userData;
 
   const DetailsContent({
     super.key,
@@ -19,10 +19,10 @@ class DetailsContent extends StatelessWidget {
       child: Column(
         children: [
           DeatilsHeader(nickname: userData!.nickname),
-          LevelShelf(level: userData!.userProgress.round()),
+          LevelShelf(level: userData!.level),
           UserDetails(
-            treesCount: userData!.getTreesCount(),
-            co2: userData!.co2Avoided,
+            treesCount: userData!.treesCount,
+            co2: userData!.co2.toDouble(),
             badgeCount: userData!.badgeCount,
           ),
         ],

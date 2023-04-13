@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:totem_boschetto/dataProvider/data_provider.dart';
 import 'package:totem_boschetto/views/home_page.dart';
 import 'package:totem_boschetto/views/info_page.dart';
 import 'package:totem_boschetto/views/navigation_menu/qrcode_nav_section.dart';
@@ -22,7 +23,7 @@ const unselectedTextStyle = TextStyle(
 );
 
 Map<NavigationRailDestination, Widget> destinations = {
-  noIconDestinationRail("Home"): const HomePage(),
+  noIconDestinationRail("Home"): HomePage(dataProvider: DataProvider()),
   noIconDestinationRail("Statistiche"): const StatisticPage(),
   noIconDestinationRail("Informazioni"): const InfoPage(),
 };

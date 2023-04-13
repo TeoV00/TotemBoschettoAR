@@ -1,16 +1,10 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
-import 'package:totem_boschetto/model/user_data.dart';
+import 'package:totem_boschetto/dataProvider/data_provider.dart';
+import 'package:totem_boschetto/model/share_data_model.dart';
 import 'package:totem_boschetto/views/home_page/dropdown_view/dropdown_container.dart';
 import 'package:totem_boschetto/views/home_page/forest/forest_tree.dart';
-
-var firebaseData = <UserData>[
-  UserData("Pippo", [1, 5, 8], 5, 200.89, 3),
-  UserData("TeoV00", [1, 2, 3, 8], 1, 85.00, 5),
-  UserData("michi", [1, 5, 8], 5, 200.89, 4),
-  UserData("manu", [1, 2, 3, 8], 1, 85.00, 0),
-  UserData("mamma", [1, 5, 8], 5, 200.89, 1),
-  UserData("pio", [1, 2, 3, 8], 1, 85.00, 0)
-];
 
 const Color secondaryColor = Color.fromRGBO(186, 250, 137, 1);
 
@@ -18,7 +12,8 @@ const Color secondaryColor = Color.fromRGBO(186, 250, 137, 1);
 const double leftOffsetInfoMenu = 30.0;
 
 class HomePage extends StatefulWidget {
-  const HomePage({super.key});
+  final DataProvider dataProvider;
+  const HomePage({super.key, required this.dataProvider});
 
   @override
   State<HomePage> createState() => _HomePageState();
@@ -26,7 +21,7 @@ class HomePage extends StatefulWidget {
 
 class _HomePageState extends State<HomePage> {
   late bool showDetails;
-  UserData? userData;
+  SharedData? userData;
 
   @override
   void initState() {
@@ -41,26 +36,36 @@ class _HomePageState extends State<HomePage> {
       child: Center(
         child: Stack(children: [
           Padding(
-            padding: const EdgeInsets.all(30.0),
-            child: GridView.count(
-              crossAxisCount: 20,
-              mainAxisSpacing: 10,
-              crossAxisSpacing: 10,
-              children: firebaseData.map(
-                (userDataTree) {
-                  return GestureDetector(
-                    onTap: () {
-                      setState(() {
-                        userData = userDataTree;
-                        showDetails = !showDetails;
-                      });
-                    },
-                    child: ForestTree(level: userDataTree.userProgress.round()),
-                  );
+              padding: const EdgeInsets.all(30.0),
+              child: FutureBuilder<List<SharedData>>(
+                future: widget.dataProvider.getTotemData(totemId: "ces_remade"),
+                builder: (context, snapshot) {
+                  if (snapshot.hasData) {
+                    log("Data: " + snapshot.data!.toString());
+                    return GridView.count(
+                      crossAxisCount: 20,
+                      mainAxisSpacing: 10,
+                      crossAxisSpacing: 10,
+                      children: (snapshot.data ?? []).map(
+                        (userDataTree) {
+                          return GestureDetector(
+                            onTap: () {
+                              setState(() {
+                                userData = userDataTree;
+                                showDetails = !showDetails;
+                              });
+                            },
+                            child:
+                                ForestTree(level: userDataTree.level.round()),
+                          );
+                        },
+                      ).toList(),
+                    );
+                  } else {
+                    return const Center(child: CircularProgressIndicator());
+                  }
                 },
-              ).toList(),
-            ),
-          ),
+              )),
           Padding(
             padding: const EdgeInsets.only(right: leftOffsetInfoMenu),
             child: Column(
