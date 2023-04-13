@@ -1,7 +1,5 @@
-import 'dart:developer';
-
 import 'package:flutter/material.dart';
-import 'package:totem_boschetto/dataProvider/data_provider.dart';
+import 'package:totem_boschetto/dataProvider/data_manager.dart';
 import 'package:totem_boschetto/model/share_data_model.dart';
 import 'package:totem_boschetto/views/home_page/dropdown_view/dropdown_container.dart';
 import 'package:totem_boschetto/views/home_page/forest/forest_tree.dart';
@@ -12,8 +10,8 @@ const Color secondaryColor = Color.fromRGBO(186, 250, 137, 1);
 const double leftOffsetInfoMenu = 30.0;
 
 class HomePage extends StatefulWidget {
-  final DataProvider dataProvider;
-  const HomePage({super.key, required this.dataProvider});
+  final DataManager dataManager;
+  const HomePage({super.key, required this.dataManager});
 
   @override
   State<HomePage> createState() => _HomePageState();
@@ -31,6 +29,7 @@ class _HomePageState extends State<HomePage> {
 
   @override
   Widget build(BuildContext context) {
+    DataManager dataManager = widget.dataManager;
     return Container(
       color: const Color.fromRGBO(236, 255, 221, 1),
       child: Center(
@@ -38,10 +37,9 @@ class _HomePageState extends State<HomePage> {
           Padding(
               padding: const EdgeInsets.all(30.0),
               child: FutureBuilder<List<SharedData>>(
-                future: widget.dataProvider.getTotemData(totemId: "ces_remade"),
+                future: dataManager.getTotemData(),
                 builder: (context, snapshot) {
                   if (snapshot.hasData) {
-                    log("Data: " + snapshot.data!.toString());
                     return GridView.count(
                       crossAxisCount: 20,
                       mainAxisSpacing: 10,
@@ -55,8 +53,7 @@ class _HomePageState extends State<HomePage> {
                                 showDetails = !showDetails;
                               });
                             },
-                            child:
-                                ForestTree(level: userDataTree.level.round()),
+                            child: ForestTree(level: userDataTree.level),
                           );
                         },
                       ).toList(),

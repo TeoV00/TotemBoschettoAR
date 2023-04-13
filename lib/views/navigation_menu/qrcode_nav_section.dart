@@ -1,11 +1,15 @@
+import 'package:barcode/barcode.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/svg.dart';
 import 'package:totem_boschetto/views/common/resizing_icon.dart';
 
 const double iconSize = 160;
 const double qrcodeSize = 100;
 
 class QrCodeNavSection extends StatefulWidget {
-  const QrCodeNavSection({super.key});
+  final String totemId;
+
+  const QrCodeNavSection({super.key, required this.totemId});
 
   @override
   State<QrCodeNavSection> createState() => _QrCodeNavSectionState();
@@ -23,7 +27,7 @@ class _QrCodeNavSectionState extends State<QrCodeNavSection> {
         children: [
           GestureDetector(
             onTap: () => _updateQrIcon(),
-            child: ScanQRIcon(showQR: _showQr),
+            child: ScanQRIcon(showQR: _showQr, totemId: widget.totemId),
           ),
           Padding(
             padding: const EdgeInsets.all(20),
@@ -55,9 +59,10 @@ class _QrCodeNavSectionState extends State<QrCodeNavSection> {
 
 class ScanQRIcon extends StatelessWidget {
   final bool showQR;
+  final String totemId;
   final Duration duration = const Duration(milliseconds: 200);
 
-  const ScanQRIcon({super.key, required this.showQR});
+  const ScanQRIcon({super.key, required this.showQR, required this.totemId});
   @override
   Widget build(BuildContext context) {
     return Stack(
@@ -80,8 +85,19 @@ class ScanQRIcon extends StatelessWidget {
           duration: duration,
         ),
         ResizingIcon(
-          //TODO: set qr code associated to the totem and linked to firebase
-          icon: Image.asset("/icons/demo-qr.png"),
+          icon: Container(
+            color: Colors.white,
+            child: Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: SvgPicture.string(
+                Barcode.qrCode().toSvg(
+                  totemId,
+                  width: qrcodeSize * 1.2,
+                  height: qrcodeSize * 1.2,
+                ),
+              ),
+            ),
+          ),
           runTransition: showQR,
           mainIconSize: 0, //initial size
           secondaryIconSize: qrcodeSize * 1.2, // final size
