@@ -17,6 +17,16 @@ class SharedData implements ObjToMapI {
     required this.treesCount,
   });
 
+  factory SharedData.fromMap(Map<String, dynamic> data) {
+    return SharedData(
+        nickname: data['nickname'],
+        badgeCount: data['badgeCount'],
+        co2: data['co2'],
+        level: data['level'],
+        paper: data['paper'],
+        treesCount: data['treesCount']);
+  }
+
   @override
   Map<String, dynamic> toMap() {
     return {
