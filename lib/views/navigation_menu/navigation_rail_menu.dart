@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
-import 'package:totem_boschetto/dataProvider/data_provider.dart';
+import 'package:totem_boschetto/dataProvider/data_manager.dart';
 import 'package:totem_boschetto/views/home_page.dart';
 import 'package:totem_boschetto/views/info_page.dart';
 import 'package:totem_boschetto/views/navigation_menu/qrcode_nav_section.dart';
@@ -22,12 +22,6 @@ const unselectedTextStyle = TextStyle(
   fontWeight: FontWeight.w700,
 );
 
-Map<NavigationRailDestination, Widget> destinations = {
-  noIconDestinationRail("Home"): HomePage(dataProvider: DataProvider()),
-  noIconDestinationRail("Statistiche"): const StatisticPage(),
-  noIconDestinationRail("Informazioni"): const InfoPage(),
-};
-
 NavigationRailDestination noIconDestinationRail(String label) {
   return NavigationRailDestination(
     icon: const SizedBox(width: 0),
@@ -37,7 +31,9 @@ NavigationRailDestination noIconDestinationRail(String label) {
 }
 
 class NavRailMenu extends StatefulWidget {
-  const NavRailMenu({super.key});
+  final DataManager dataManager;
+
+  const NavRailMenu({super.key, required this.dataManager});
 
   @override
   State<NavRailMenu> createState() => _NavRailMenuState();
@@ -52,15 +48,22 @@ class _NavRailMenuState extends State<NavRailMenu> {
     var navRailWidth = 320.0; //screenSize.width * 0.25;
     var emptyLeadingSpace = screenSize.height * 0.2;
 
+    Map<NavigationRailDestination, Widget> destinations = {
+      noIconDestinationRail("Home"): HomePage(dataManager: widget.dataManager),
+      noIconDestinationRail("Statistiche"): const StatisticPage(),
+      noIconDestinationRail("Informazioni"): const InfoPage(),
+    };
+
     return Row(
       children: [
         NavigationRail(
           leading: SizedBox(height: emptyLeadingSpace),
           trailing: Expanded(
             child: Column(
-              children: const [
-                Spacer(),
-                QrCodeNavSection(),
+              children: [
+                const Spacer(),
+                QrCodeNavSection(
+                    totemId: widget.dataManager.getCurrentTotemId()),
               ],
             ),
           ),
