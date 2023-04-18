@@ -1,3 +1,6 @@
+import 'dart:developer';
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:totem_boschetto/views/home_page/home_utils.dart';
@@ -25,11 +28,7 @@ class LevelShelf extends StatelessWidget {
             ),
             Padding(
               padding: const EdgeInsets.only(bottom: 35),
-              child: SizedBox(
-                  height: 150,
-                  width: 120,
-                  child:
-                      SvgPicture.asset("$iconLevelPath$level.svg", width: 120)),
+              child: _getLevelPicture(level: level),
             ),
             Container(
               decoration: const BoxDecoration(
@@ -60,6 +59,15 @@ class LevelShelf extends StatelessWidget {
           ],
         ),
       ],
+    );
+  }
+
+  Widget _getLevelPicture({required final int level}) {
+    String levelPath = "$iconLevelPath$level.svg";
+    return SizedBox(
+      height: 150,
+      width: 120,
+      child: SvgPicture.asset(levelPath),
     );
   }
 }
