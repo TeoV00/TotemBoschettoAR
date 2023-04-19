@@ -5,6 +5,7 @@ import 'package:totem_boschetto/views/common/resizing_icon.dart';
 
 const double iconSize = 160;
 const double qrcodeSize = 100;
+const Duration autoCloseTimeout = Duration(seconds: 10);
 
 class QrCodeNavSection extends StatefulWidget {
   final String totemId;
@@ -17,9 +18,21 @@ class QrCodeNavSection extends StatefulWidget {
 
 class _QrCodeNavSectionState extends State<QrCodeNavSection> {
   bool _showQr = false;
+  bool _dataRecv = true;
 
   @override
   Widget build(BuildContext context) {
+    if (_showQr) {
+      Future.delayed(autoCloseTimeout).then((value) => _updateQrIcon());
+    }
+    if (_dataRecv) {
+      Future.delayed(const Duration(seconds: 5)).then((value) => {
+            setState(() {
+              _dataRecv = false;
+              _showQr = false;
+            })
+          });
+    }
     return SizedBox(
       height: 300,
       child: Column(
