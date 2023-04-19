@@ -52,6 +52,8 @@ class _NavRailMenuState extends State<NavRailMenu> {
       noIconDestinationRail("Home"): HomePage(dataManager: widget.dataManager),
       noIconDestinationRail("Statistiche"):
           StatisticPage(dataManager: widget.dataManager),
+      noIconDestinationRail("Classifica Utenti"):
+          const Text("Schermata classifica"),
       noIconDestinationRail("Informazioni"): const InfoPage(),
     };
 
