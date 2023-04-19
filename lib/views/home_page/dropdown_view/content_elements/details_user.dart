@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:totem_boschetto/unit_converter.dart';
 
 const labelValStyle = TextStyle(
   fontSize: 20,
@@ -24,8 +25,10 @@ class UserDetails extends StatelessWidget {
         children: [
           _getLabelValue("Alberi scoperti", treesCount),
           _getLabelValue("Co2", co2),
-          _getLabelValue("elettricità", co2),
-          _getLabelValue("altro", co2),
+          _getLabelValue(
+              "Elettricità Kwh", UnitConverter.fromCo2ToKiloWatt(co2).round()),
+          _getLabelValue(
+              "Benzina L.", UnitConverter.fromCo2ToBenzinaLiter(co2)),
           _getLabelValue("N. Badge", badgeCount),
         ],
       ),
