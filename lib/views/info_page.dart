@@ -1,9 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
-import 'package:totem_boschetto/views/text_style_infopage.dart';
 
 var sections = <Widget>[
-  makeTitle("ReMade"),
+  /*makeTitle("ReMade"),
   makeParagraph(
       "Il progetto che collega il risparmio della (processo di dematerializzazione) alla piantumazione proporzionale di alberi"),
   Row(
@@ -38,7 +37,7 @@ var sections = <Widget>[
         Image.asset("/images/sdg_remade.png")
       ],
     ),
-  ),
+  ),*/
 ];
 
 class InfoPage extends StatelessWidget {
@@ -46,21 +45,6 @@ class InfoPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return SingleChildScrollView(
-      padding: const EdgeInsets.all(30),
-      scrollDirection: Axis.vertical,
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          Expanded(
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              crossAxisAlignment: CrossAxisAlignment.center,
-              children: [...sections],
-            ),
-          ),
-        ],
-      ),
-    );
+    return Text("data");
   }
 }
