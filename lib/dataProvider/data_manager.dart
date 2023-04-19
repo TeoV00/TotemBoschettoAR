@@ -49,5 +49,7 @@ class DataManager {
     return '';
   }
 
-  getSavedPaper() {}
+  getSavedPaper() {
+    return '';
+  }
 }

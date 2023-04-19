@@ -1,9 +1,7 @@
-import 'dart:developer';
-import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
-import 'package:totem_boschetto/views/home_page/home_utils.dart';
+import 'package:totem_boschetto/views/common/assets_path.dart';
 
 class LevelShelf extends StatelessWidget {
   const LevelShelf({

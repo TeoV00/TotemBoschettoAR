@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:totem_boschetto/dataProvider/data_manager.dart';
 import 'package:totem_boschetto/model/share_data_model.dart';
 import 'package:totem_boschetto/views/home_page/dropdown_view/dropdown_container.dart';
-import 'package:totem_boschetto/views/home_page/forest/forest_tree.dart';
+import 'package:totem_boschetto/views/home_page/dropdown_view/forest_tree.dart';
 
 const Color secondaryColor = Color.fromRGBO(186, 250, 137, 1);
 
@@ -59,7 +59,10 @@ class _HomePageState extends State<HomePage> {
                       ).toList(),
                     );
                   } else {
-                    return const Center(child: CircularProgressIndicator());
+                    return const Center(
+                        child: CircularProgressIndicator(
+                      color: Color.fromRGBO(161, 204, 130, 1),
+                    ));
                   }
                 },
               )),

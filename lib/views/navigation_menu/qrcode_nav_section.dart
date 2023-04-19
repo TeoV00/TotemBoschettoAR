@@ -18,7 +18,7 @@ class QrCodeNavSection extends StatefulWidget {
 
 class _QrCodeNavSectionState extends State<QrCodeNavSection> {
   bool _showQr = false;
-  bool _dataRecv = true;
+  bool _dataRecv = false;
 
   @override
   Widget build(BuildContext context) {
