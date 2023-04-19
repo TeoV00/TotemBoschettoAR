@@ -5,6 +5,7 @@ import 'package:totem_boschetto/views/home_page/dropdown_view/dropdown_container
 import 'package:totem_boschetto/views/home_page/dropdown_view/forest_tree.dart';
 
 const Color secondaryColor = Color.fromRGBO(186, 250, 137, 1);
+const double forestPadding = 30.0;
 
 ///This padding set distance of dropdown details box by right side of screen
 const double leftOffsetInfoMenu = 30.0;
@@ -35,7 +36,12 @@ class _HomePageState extends State<HomePage> {
       child: Center(
         child: Stack(children: [
           Padding(
-              padding: const EdgeInsets.all(30.0),
+              padding: const EdgeInsets.only(
+                bottom: forestPadding,
+                left: forestPadding,
+                right: forestPadding,
+                top: forestPadding * 2,
+              ),
               child: FutureBuilder<List<SharedData>>(
                 future: dataManager.getTotemData(),
                 builder: (context, snapshot) {
