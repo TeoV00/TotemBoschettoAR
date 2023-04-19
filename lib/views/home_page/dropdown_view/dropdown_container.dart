@@ -108,6 +108,7 @@ class _DropdownContainerState extends State<DropdownContainer> {
       padding: const EdgeInsets.only(bottom: 30.0),
       child: Column(
         children: [
+          const Spacer(),
           userData != null
               ? DetailsContent(
                   userData: userData,
