@@ -50,7 +50,8 @@ class _NavRailMenuState extends State<NavRailMenu> {
 
     Map<NavigationRailDestination, Widget> destinations = {
       noIconDestinationRail("Home"): HomePage(dataManager: widget.dataManager),
-      noIconDestinationRail("Statistiche"): const StatisticPage(),
+      noIconDestinationRail("Statistiche"):
+          StatisticPage(dataManager: widget.dataManager),
       noIconDestinationRail("Informazioni"): const InfoPage(),
     };
 
