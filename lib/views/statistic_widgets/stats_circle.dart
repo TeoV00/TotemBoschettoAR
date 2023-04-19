@@ -59,7 +59,7 @@ class _StatsCircleState extends State<StatsCircle> {
         double labelTextSize = mainIconSize * 0.20;
         double descrTextSize = labelTextSize * 0.8;
 
-        double descrPadding = size * 0.1;
+        double descrPadding = size * 0.05;
 
         return Padding(
           padding: const EdgeInsets.all(20.0),
