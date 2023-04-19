@@ -32,4 +32,22 @@ class DataManager {
   String getCurrentTotemId() {
     return _totemId;
   }
+
+  String getProjectInvolved() {
+    return '';
+  }
+
+  String getAvoidedCo2() {
+    return '';
+  }
+
+  String getPlantedTree() {
+    return '';
+  }
+
+  String getAwareness() {
+    return '';
+  }
+
+  getSavedPaper() {}
 }
