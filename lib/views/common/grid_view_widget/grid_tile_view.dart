@@ -41,22 +41,27 @@ class GridTileView extends StatelessWidget {
             }
           }
           tilesRows.add(
-            Expanded(
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                children: singleRow
-                    .map((tile) => SizedBox(
-                          height: tileHeight,
-                          width: tileWidth * (tile.cellCountWidth ?? 1),
-                          child: tile,
-                        ))
-                    .toList(),
-              ),
+            Row(
+              children: [
+                Expanded(
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                    children: singleRow
+                        .map((tile) => SizedBox(
+                              height: tileHeight,
+                              width: tileWidth * (tile.cellCountWidth ?? 1),
+                              child: tile,
+                            ))
+                        .toList(),
+                  ),
+                ),
+              ],
             ),
           );
         }
 
         return Column(
+          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           children: tilesRows,
         );
       },
