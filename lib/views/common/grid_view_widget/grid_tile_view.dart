@@ -29,17 +29,19 @@ class GridTileView extends StatelessWidget {
         double tileHeight = (parentHeigth / rowCount);
 
         List<GridTileItem> singleRow = [];
-        int idx = 0;
         for (int row = 0; row < rowIdxCount; row++) {
           int rowCapacity = colCount;
           singleRow = [];
-
-          for (; rowCapacity > 0 && idx < tiles.length; idx++) {
-            GridTileItem item = tiles[idx];
+          int skipIdx = 0;
+          for (; rowCapacity > 0 && tiles.isNotEmpty;) {
+            GridTileItem item = tiles[skipIdx];
             int itemSize = (item.cellCountWidth ?? 1).toInt();
             if (rowCapacity - itemSize >= 0) {
               singleRow.add(item);
+              tiles.remove(item);
               rowCapacity = rowCapacity - itemSize;
+            } else {
+              skipIdx = skipIdx + 1 > tiles.length ? tiles.length : skipIdx + 1;
             }
           }
           tilesRows.add(
