@@ -25,7 +25,7 @@ class GridTileView extends StatelessWidget {
         double parentWidht = constraint.maxWidth;
         double parentHeigth = constraint.maxHeight;
 
-        double tileWidth = (parentWidht / colCount) - tileSpacing;
+        double tileWidth = (parentWidht / colCount) - tileSpacing * 2;
         double tileHeight = (parentHeigth / rowCount);
 
         List<GridTileItem> singleRow = [];
@@ -33,13 +33,12 @@ class GridTileView extends StatelessWidget {
         for (int row = 0; row < rowIdxCount; row++) {
           int rowCapacity = colCount;
           singleRow = [];
-          int itemCount = 0;
+
           for (; rowCapacity > 0 && idx < tiles.length; idx++) {
             GridTileItem item = tiles[idx];
             int itemSize = (item.cellCountWidth ?? 1).toInt();
             if (rowCapacity - itemSize >= 0) {
               singleRow.add(item);
-              itemCount++;
               rowCapacity = rowCapacity - itemSize;
             }
           }
@@ -48,13 +47,14 @@ class GridTileView extends StatelessWidget {
               children: [
                 Expanded(
                   child: Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
                     children: singleRow
                         .map((tile) => Padding(
                               padding: EdgeInsets.all(tileSpacing),
                               child: SizedBox(
                                 height: tileHeight,
                                 width: tileWidth * (tile.cellCountWidth ?? 1) -
-                                    (itemCount * tileSpacing),
+                                    (tile.cellCountWidth ?? 1 * tileSpacing),
                                 child: tile,
                               ),
                             ))
@@ -67,9 +67,12 @@ class GridTileView extends StatelessWidget {
         }
 
         return SingleChildScrollView(
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-            children: tilesRows,
+          child: Padding(
+            padding: const EdgeInsets.all(20.0),
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              children: tilesRows,
+            ),
           ),
         );
       },

@@ -26,7 +26,7 @@ var tiles = <GridTileItem>[
         children: [
           Image.asset(
             "$imagePath/sdg_remade.png",
-            width: constraint.maxWidth,
+            width: 600,
           ),
         ],
       );
@@ -48,6 +48,14 @@ var tiles = <GridTileItem>[
       style: TextStyle(fontSize: 26, overflow: TextOverflow.fade),
     ),
   ),
+  const GridTileItem(
+    label: "empty",
+    hintText: "Tocca per scoprire di più",
+    child: Text(
+      "Il progetto che collega il risparmio della carta (processo di dematerializzazione) alla piantumazione proporzionale di alberi",
+      style: TextStyle(fontSize: 26, overflow: TextOverflow.fade),
+    ),
+  ),
 ];
 
 class InfoPage extends StatelessWidget {
@@ -55,13 +63,11 @@ class InfoPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.all(40.0),
-      child: GridTileView(
-        colCount: 3,
-        rowCount: 3,
-        tiles: tiles,
-      ),
+    return GridTileView(
+      colCount: 3,
+      rowCount: 3,
+      tiles: tiles,
+      tileSpacing: 20.0,
     );
   }
 }
