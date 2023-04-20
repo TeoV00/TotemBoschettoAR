@@ -1,3 +1,4 @@
+
 import 'package:flutter/material.dart';
 
 const labelTileStyle = TextStyle(
@@ -6,17 +7,17 @@ const labelTileStyle = TextStyle(
 );
 
 const hintStyle = TextStyle(
-  fontSize: 25,
+  fontSize: 20,
 );
 
-class InfoGridTile extends StatelessWidget {
+class GridTileItem extends StatelessWidget {
   final String label;
   final Widget? child;
   final String? hintText;
   final Color? color;
   final double? cellCountWidth;
 
-  const InfoGridTile({
+  const GridTileItem({
     super.key,
     required this.label,
     this.hintText,
