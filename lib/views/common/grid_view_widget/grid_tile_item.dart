@@ -1,4 +1,3 @@
-
 import 'package:flutter/material.dart';
 
 const labelTileStyle = TextStyle(
@@ -15,7 +14,7 @@ class GridTileItem extends StatelessWidget {
   final Widget? child;
   final String? hintText;
   final Color? color;
-  final double? cellCountWidth;
+  final int? cellCountWidth;
 
   const GridTileItem({
     super.key,
