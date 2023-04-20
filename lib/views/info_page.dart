@@ -45,6 +45,32 @@ class InfoPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Text("data");
+    return Column(
+      children: [
+        Row(
+          children: [
+            Expanded(
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceAround,
+                children: [
+                  Container(
+                    color: Colors.black,
+                    height: 40,
+                    width: 80,
+                  ),
+                  Container(
+                    color: Colors.red,
+                    height: 40,
+                    width: 80,
+                  ),
+                ],
+              ),
+            )
+          ],
+        ),
+        Text("data"),
+        Text("data"),
+      ],
+    );
   }
 }
