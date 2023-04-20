@@ -1,43 +1,49 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
+import 'package:totem_boschetto/constant_vars.dart';
+import 'package:totem_boschetto/views/info_page/info_grid_tile.dart';
 
-var sections = <Widget>[
-  /*makeTitle("ReMade"),
-  makeParagraph(
-      "Il progetto che collega il risparmio della (processo di dematerializzazione) alla piantumazione proporzionale di alberi"),
-  Row(
-    mainAxisAlignment: MainAxisAlignment.start,
-    children: [
-      Image.asset("images/remade.png", fit: BoxFit.fitWidth),
-      Expanded(
-        child: Column(
-          // align text on left
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            makeHeader("OBIETTIVO"),
-            makeParagraph(
-              "Attraverso il Progetto ReMade (REplanting for Monitoring Accomplishment of DEmaterialization) l'Ateneo vuole potenziare l'effetto del risparmio di carta prodotto dalla digitalizzazione dei processi amministrativi e di comunicazione. Ad esempio, la stampa delle brochure di AlmaOrienta consumava 13 tonnellate di carta all'anno. Questo risparmio di carta (processo di dematerializzazione) si tradurrà nella piantumazione proporzionale di alberi in giardini dedicati allo scopo. ",
-            ),
-            makeHeader("ATTIVITÀ"),
-            makeParagraph(
-                "Oltre alla piantumazione di nuove alberature, i risultati virtuali (meno carta) e reali (più alberi) saranno diffusi attraverso una web app per affiancare, all'effetto sull'ambiente, un aumento di consapevolezza e competenza da parte della comunità Unibo."),
-          ],
-        ),
-      ),
-    ],
+var tiles = <InfoGridTile>[
+  const InfoGridTile(
+    label: "Come è stata calcolata la $co2String a partire dai fogli di carta?",
+    hintText: "Tocca per scoprire di più",
   ),
-  makeHeader("Render"),
-  Image.asset("/images/render_cesena.jpeg"),
-  Padding(
-    padding: const EdgeInsets.all(40.0),
-    child: Column(
-      children: [
-        makeParagraph(
-            "Con questo progetto L'università di Bologna constribuisce algi obbiettivi dell' Agenda ONU 2030"),
-        Image.asset("/images/sdg_remade.png")
-      ],
+  const InfoGridTile(
+    label: "Come è stata calcolata la $co2String a partire dai fogli di carta?",
+    hintText: "Tocca per scoprire di più",
+  ),
+  const InfoGridTile(
+    label: "Come è stata calcolata la $co2String a partire dai fogli di carta?",
+    hintText: "Tocca per scoprire di più",
+  ),
+  InfoGridTile(
+    cellCountWidth: 2,
+    label:
+        "Con questi progetti, l'Ateneo contribuisce agli obiettivi dell'agenda ONU 2030",
+    // this tile occupies space of 2 unit tile
+    // tileWidth: tileWidth * 2,
+    child: LayoutBuilder(builder: (context, constraint) {
+      return Row(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          Image.asset(
+            "$imagePath/sdg_remade.png",
+            width: constraint.maxWidth,
+          ),
+        ],
+      );
+    }),
+  ),
+  const InfoGridTile(
+    label: "ReMade",
+    hintText: "Tocca per scoprire di più",
+    child: Text(
+      "Il progetto che collega il risparmio della carta (processo di dematerializzazione) alla piantumazione proporzionale di alberi",
+      style: TextStyle(fontSize: 26, overflow: TextOverflow.fade),
     ),
-  ),*/
+  ),
 ];
 
 class InfoPage extends StatelessWidget {
@@ -45,32 +51,40 @@ class InfoPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      children: [
-        Row(
-          children: [
-            Expanded(
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceAround,
+    return LayoutBuilder(
+      builder: (context, constraint) {
+        double parentWidht = constraint.maxWidth;
+        double parentHeigth = constraint.maxHeight;
+
+        double tileSpacing = parentWidht * 0.12;
+        double tileWidth = (parentWidht / 3) - tileSpacing;
+        double tileHeight = (parentHeigth / 3);
+        log("w: $parentWidht h: $parentHeigth");
+
+        return Padding(
+          padding: const EdgeInsets.all(20.0),
+          child: Column(
+            children: [
+              Row(
                 children: [
-                  Container(
-                    color: Colors.black,
-                    height: 40,
-                    width: 80,
-                  ),
-                  Container(
-                    color: Colors.red,
-                    height: 40,
-                    width: 80,
+                  Expanded(
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                      children: tiles
+                          .map((tile) => SizedBox(
+                                height: tileHeight,
+                                width: tileWidth * (tile.cellCountWidth ?? 1),
+                                child: tile,
+                              ))
+                          .toList(),
+                    ),
                   ),
                 ],
               ),
-            )
-          ],
-        ),
-        Text("data"),
-        Text("data"),
-      ],
+            ],
+          ),
+        );
+      },
     );
   }
 }
