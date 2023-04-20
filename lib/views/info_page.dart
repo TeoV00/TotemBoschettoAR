@@ -11,19 +11,17 @@ var tiles = <InfoGridTile>[
     hintText: "Tocca per scoprire di più",
   ),
   const InfoGridTile(
-    label: "Come è stata calcolata la $co2String a partire dai fogli di carta?",
+    label: "Come sono stati calcolati i litri di benzina?",
     hintText: "Tocca per scoprire di più",
   ),
   const InfoGridTile(
-    label: "Come è stata calcolata la $co2String a partire dai fogli di carta?",
+    label: "Come è stato calcolata l'energia elettrica?",
     hintText: "Tocca per scoprire di più",
   ),
   InfoGridTile(
-    cellCountWidth: 2,
+    cellCountWidth: 1,
     label:
         "Con questi progetti, l'Ateneo contribuisce agli obiettivi dell'agenda ONU 2030",
-    // this tile occupies space of 2 unit tile
-    // tileWidth: tileWidth * 2,
     child: LayoutBuilder(builder: (context, constraint) {
       return Row(
         mainAxisAlignment: MainAxisAlignment.center,
@@ -44,6 +42,14 @@ var tiles = <InfoGridTile>[
       style: TextStyle(fontSize: 26, overflow: TextOverflow.fade),
     ),
   ),
+  const InfoGridTile(
+    label: "empty",
+    hintText: "Tocca per scoprire di più",
+    child: Text(
+      "Il progetto che collega il risparmio della carta (processo di dematerializzazione) alla piantumazione proporzionale di alberi",
+      style: TextStyle(fontSize: 26, overflow: TextOverflow.fade),
+    ),
+  ),
 ];
 
 class InfoPage extends StatelessWidget {
@@ -51,40 +57,50 @@ class InfoPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return LayoutBuilder(
-      builder: (context, constraint) {
-        double parentWidht = constraint.maxWidth;
-        double parentHeigth = constraint.maxHeight;
+    const colCount = 3;
+    const rowCount = 3;
+    var rowIdxCount = (tiles.length / colCount).ceil();
+    log("righe: ${rowIdxCount.toString()}");
 
-        double tileSpacing = parentWidht * 0.12;
-        double tileWidth = (parentWidht / 3) - tileSpacing;
-        double tileHeight = (parentHeigth / 3);
-        log("w: $parentWidht h: $parentHeigth");
+    return Padding(
+      padding: const EdgeInsets.all(40.0),
+      child: LayoutBuilder(
+        builder: (context, constraint) {
+          double parentWidht = constraint.maxWidth;
+          double parentHeigth = constraint.maxHeight;
 
-        return Padding(
-          padding: const EdgeInsets.all(20.0),
-          child: Column(
-            children: [
-              Row(
-                children: [
-                  Expanded(
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                      children: tiles
-                          .map((tile) => SizedBox(
-                                height: tileHeight,
-                                width: tileWidth * (tile.cellCountWidth ?? 1),
-                                child: tile,
-                              ))
-                          .toList(),
-                    ),
-                  ),
-                ],
+          double tileSpacing = parentWidht * 0.05;
+          double tileWidth = (parentWidht / colCount) - tileSpacing;
+          double tileHeight = (parentHeigth / rowCount);
+          log("w: $parentWidht h: $parentHeigth");
+
+          List<Widget> listRows = [];
+          for (int row = 0; row < rowIdxCount; row++) {
+            int start = row * colCount;
+            int end = (row * colCount) + colCount;
+
+            listRows.add(
+              Expanded(
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                  children: tiles
+                      .getRange(start, end)
+                      .map((tile) => SizedBox(
+                            height: tileHeight,
+                            width: tileWidth * (tile.cellCountWidth ?? 1),
+                            child: tile,
+                          ))
+                      .toList(),
+                ),
               ),
-            ],
-          ),
-        );
-      },
+            );
+          }
+
+          return Column(
+            children: listRows,
+          );
+        },
+      ),
     );
   }
 }
