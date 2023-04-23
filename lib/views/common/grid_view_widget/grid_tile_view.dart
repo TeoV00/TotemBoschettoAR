@@ -1,6 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:totem_boschetto/views/common/grid_view_widget/grid_tile_item.dart';
 
+abstract class GridTileItem {
+  int getCellWidth();
+  Widget getChild();
+}
+
 class GridTileView extends StatelessWidget {
   const GridTileView({
     super.key,
@@ -35,7 +40,7 @@ class GridTileView extends StatelessWidget {
           int skipIdx = 0;
           for (; rowCapacity > 0 && tiles.isNotEmpty;) {
             GridTileItem item = tiles[skipIdx];
-            int itemSize = (item.cellCountWidth ?? 1).toInt();
+            int itemSize = (item.getCellWidth() ?? 1).toInt();
             if (rowCapacity - itemSize >= 0) {
               singleRow.add(item);
               tiles.remove(item);
@@ -55,9 +60,9 @@ class GridTileView extends StatelessWidget {
                               padding: EdgeInsets.all(tileSpacing),
                               child: SizedBox(
                                 height: tileHeight,
-                                width: tileWidth * (tile.cellCountWidth ?? 1) -
-                                    (tile.cellCountWidth ?? 1 * tileSpacing),
-                                child: tile,
+                                width: tileWidth * (tile.getCellWidth() ?? 1) -
+                                    (tile.getCellWidth() * tileSpacing),
+                                child: tile.getChild(),
                               ),
                             ))
                         .toList(),
