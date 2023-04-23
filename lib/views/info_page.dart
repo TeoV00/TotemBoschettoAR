@@ -4,19 +4,19 @@ import 'package:totem_boschetto/views/common/grid_view_widget/grid_tile_item.dar
 import 'package:totem_boschetto/views/common/grid_view_widget/grid_tile_view.dart';
 
 var tiles = <GridTileItem>[
-  const GridTileItem(
+  const InfoTile(
     label: "Come è stata calcolata la $co2String a partire dai fogli di carta?",
     hintText: "Tocca per scoprire di più",
   ),
-  const GridTileItem(
+  const InfoTile(
     label: "Come sono stati calcolati i litri di benzina?",
     hintText: "Tocca per scoprire di più",
   ),
-  const GridTileItem(
+  const InfoTile(
     label: "Come è stato calcolata l'energia elettrica?",
     hintText: "Tocca per scoprire di più",
   ),
-  GridTileItem(
+  InfoTile(
     cellCountWidth: 2,
     label:
         "Con questi progetti, l'Ateneo contribuisce agli obiettivi dell'agenda ONU 2030",
@@ -32,7 +32,7 @@ var tiles = <GridTileItem>[
       );
     }),
   ),
-  const GridTileItem(
+  const InfoTile(
     label: "ReMade",
     hintText: "Tocca per scoprire di più",
     child: Text(
@@ -40,7 +40,7 @@ var tiles = <GridTileItem>[
       style: TextStyle(fontSize: 26, overflow: TextOverflow.fade),
     ),
   ),
-  const GridTileItem(
+  const InfoTile(
     label: "empty",
     hintText: "Tocca per scoprire di più",
     child: Text(
@@ -48,7 +48,7 @@ var tiles = <GridTileItem>[
       style: TextStyle(fontSize: 26, overflow: TextOverflow.fade),
     ),
   ),
-  const GridTileItem(
+  const InfoTile(
     label: "empty",
     hintText: "Tocca per scoprire di più",
     child: Text(
@@ -67,8 +67,16 @@ class InfoPage extends StatefulWidget {
 
 class _InfoPageState extends State<InfoPage> {
   bool showInfoBox = false;
+
   @override
   Widget build(BuildContext context) {
+    // tiles.forEach((infoTile) {
+    //   GestureDetector(
+    //     child: infoTile,
+    //     onTap: ,
+    //   );
+    // });
+
     return Stack(
       children: [
         GridTileView(

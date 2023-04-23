@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:totem_boschetto/views/common/grid_view_widget/grid_tile_view.dart';
 
 const labelTileStyle = TextStyle(
   fontSize: 28,
@@ -9,15 +10,14 @@ const hintStyle = TextStyle(
   fontSize: 20,
 );
 
-class GridTileItem extends StatelessWidget {
+class InfoTile implements GridTileItem {
   final String label;
   final Widget? child;
   final String? hintText;
   final Color? color;
   final int? cellCountWidth;
 
-  const GridTileItem({
-    super.key,
+  const InfoTile({
     required this.label,
     this.hintText,
     this.color,
@@ -26,7 +26,12 @@ class GridTileItem extends StatelessWidget {
   });
 
   @override
-  Widget build(BuildContext context) {
+  int getCellWidth() {
+    return cellCountWidth ?? 1;
+  }
+
+  @override
+  Widget getChild() {
     return Container(
       decoration: BoxDecoration(
         color: color ?? const Color.fromRGBO(243, 243, 243, 1),
