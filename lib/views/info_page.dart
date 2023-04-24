@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:totem_boschetto/constant_vars.dart';
-import 'package:totem_boschetto/views/common/grid_view_widget/grid_tile_item.dart';
 import 'package:totem_boschetto/views/common/grid_view_widget/grid_tile_view.dart';
+import 'package:totem_boschetto/views/info_page/info_tile.dart';
 
 var tiles = <GridTileItem>[
   const InfoTile(
