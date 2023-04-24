@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:totem_boschetto/views/common/grid_view_widget/grid_tile_item.dart';
 
 abstract class GridTileItem {
   int getCellWidth();
