@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 import 'package:totem_boschetto/constant_vars.dart';
 import 'package:totem_boschetto/views/common/grid_view_widget/grid_tile_view.dart';
@@ -65,8 +67,8 @@ class InfoPage extends StatefulWidget {
   State<InfoPage> createState() => _InfoPageState();
 }
 
-class _InfoPageState extends State<InfoPage> {
-  bool showInfoBox = false;
+class _InfoPageState extends State<InfoPage> implements GridViewNotifier {
+  Widget? detailsWidget;
 
   @override
   Widget build(BuildContext context) {
@@ -77,8 +79,12 @@ class _InfoPageState extends State<InfoPage> {
           rowCount: 3,
           tiles: tiles,
           tileSpacing: 20.0,
+          onTileTap: () => setState(() {
+            log("tapped tile");
+          }),
+          listener: this,
         ),
-        if (showInfoBox) ...[
+        if (detailsWidget != null) ...[
           Container(
             color: const Color.fromARGB(22, 0, 0, 0),
             child: Center(
@@ -89,18 +95,30 @@ class _InfoPageState extends State<InfoPage> {
                   color: Colors.white,
                   borderRadius: BorderRadius.circular(10),
                 ),
-                child: TextButton(
-                    onPressed: () {
-                      setState(() => {
-                            showInfoBox = false,
-                          });
-                    },
-                    child: Text("CHIUDI")),
+                child: Column(
+                  children: [
+                    detailsWidget ?? const SizedBox(),
+                    TextButton(
+                        onPressed: () {
+                          setState(() => {
+                                detailsWidget = null,
+                              });
+                        },
+                        child: const Text("CHIUDI")),
+                  ],
+                ),
               ),
             ),
           )
         ],
       ],
     );
+  }
+
+  @override
+  void notifyTileTapped(Widget? detailsView) {
+    setState(() {
+      detailsWidget = detailsView;
+    });
   }
 }
