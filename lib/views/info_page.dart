@@ -70,13 +70,6 @@ class _InfoPageState extends State<InfoPage> {
 
   @override
   Widget build(BuildContext context) {
-    // tiles.forEach((infoTile) {
-    //   GestureDetector(
-    //     child: infoTile,
-    //     onTap: ,
-    //   );
-    // });
-
     return Stack(
       children: [
         GridTileView(
@@ -85,29 +78,28 @@ class _InfoPageState extends State<InfoPage> {
           tiles: tiles,
           tileSpacing: 20.0,
         ),
-        showInfoBox
-            ? Container(
-                color: Color.fromARGB(
-                    20, 255, 5, 5), //const Color.fromARGB(22, 0, 0, 0),
-                child: Center(
-                  child: Container(
-                    height: 400,
-                    width: 400,
-                    decoration: BoxDecoration(
-                      color: Colors.white,
-                      borderRadius: BorderRadius.circular(10),
-                    ),
-                    child: TextButton(
-                        onPressed: () {
-                          setState(() => {
-                                showInfoBox = false,
-                              });
-                        },
-                        child: Text("CHIUDI")),
-                  ),
+        if (showInfoBox) ...[
+          Container(
+            color: const Color.fromARGB(22, 0, 0, 0),
+            child: Center(
+              child: Container(
+                height: 400,
+                width: 400,
+                decoration: BoxDecoration(
+                  color: Colors.white,
+                  borderRadius: BorderRadius.circular(10),
                 ),
-              )
-            : Text(" che dolores"),
+                child: TextButton(
+                    onPressed: () {
+                      setState(() => {
+                            showInfoBox = false,
+                          });
+                    },
+                    child: Text("CHIUDI")),
+              ),
+            ),
+          )
+        ],
       ],
     );
   }
