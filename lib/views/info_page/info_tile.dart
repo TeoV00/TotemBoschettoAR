@@ -61,4 +61,11 @@ class InfoTile implements GridTileItem {
       ),
     );
   }
+
+  @override
+  Widget getDetailsWidget() {
+    return Container(
+      child: const Text("put here details of tile"),
+    );
+  }
 }

@@ -1,8 +1,11 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 
 abstract class GridTileItem {
   int getCellWidth();
   Widget getChild();
+  Widget getDetailsWidget();
 }
 
 class GridTileView extends StatelessWidget {
@@ -58,15 +61,21 @@ class GridTileView extends StatelessWidget {
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: singleRow
-                        .map((tile) => Padding(
-                              padding: EdgeInsets.all(tileSpacing),
-                              child: SizedBox(
-                                height: tileHeight,
-                                width: tileWidth * tile.getCellWidth() -
-                                    (tile.getCellWidth() * tileSpacing),
-                                child: tile.getChild(),
-                              ),
-                            ))
+                        .map(
+                          (tile) => Padding(
+                            padding: EdgeInsets.all(tileSpacing),
+                            child: SizedBox(
+                              height: tileHeight,
+                              width: tileWidth * tile.getCellWidth() -
+                                  (tile.getCellWidth() * tileSpacing),
+                              child: GestureDetector(
+                                  onTap: () {
+                                    log("tapped tile");
+                                  },
+                                  child: tile.getChild()),
+                            ),
+                          ),
+                        )
                         .toList(),
                   ),
                 ),
