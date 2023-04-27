@@ -16,6 +16,7 @@ class InfoTile implements GridTileItem {
   final String? hintText;
   final Color? color;
   final int? cellCountWidth;
+  final Widget? detailsView;
 
   const InfoTile({
     required this.label,
@@ -23,6 +24,7 @@ class InfoTile implements GridTileItem {
     this.color,
     this.child,
     this.cellCountWidth,
+    this.detailsView,
   });
 
   @override
@@ -64,8 +66,9 @@ class InfoTile implements GridTileItem {
 
   @override
   Widget getDetailsWidget() {
-    return Container(
-      child: const Text("put here details of tile"),
+    return Padding(
+      padding: const EdgeInsets.all(10),
+      child: detailsView,
     );
   }
 }
