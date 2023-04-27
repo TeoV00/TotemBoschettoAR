@@ -65,10 +65,7 @@ class InfoTile implements GridTileItem {
   }
 
   @override
-  Widget getDetailsWidget() {
-    return Padding(
-      padding: const EdgeInsets.all(10),
-      child: detailsView,
-    );
+  Widget? getDetailsWidget() {
+    return detailsView;
   }
 }
