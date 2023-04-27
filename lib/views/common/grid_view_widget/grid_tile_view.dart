@@ -1,26 +1,32 @@
-import 'dart:developer';
-
 import 'package:flutter/material.dart';
 
 abstract class GridTileItem {
   int getCellWidth();
   Widget getChild();
-  Widget getDetailsWidget();
+  Widget? getDetailsWidget();
+}
+
+abstract class GridViewNotifier {
+  void notifyTileTapped(Widget? detailsView);
 }
 
 class GridTileView extends StatelessWidget {
+  final int colCount;
+  final int rowCount;
+  final double tileSpacing;
+  final List<GridTileItem> tiles;
+  final Function? onTileTap;
+  final GridViewNotifier listener;
+
   const GridTileView({
     super.key,
     required this.colCount,
     required this.rowCount,
     required this.tiles,
     required this.tileSpacing,
+    this.onTileTap,
+    required this.listener,
   });
-
-  final int colCount;
-  final int rowCount;
-  final double tileSpacing;
-  final List<GridTileItem> tiles;
 
   @override
   Widget build(BuildContext context) {
@@ -70,7 +76,10 @@ class GridTileView extends StatelessWidget {
                                   (tile.getCellWidth() * tileSpacing),
                               child: GestureDetector(
                                   onTap: () {
-                                    log("tapped tile");
+                                    onTileTap?.call();
+                                    //set details to be showed
+                                    listener.notifyTileTapped(
+                                        tile.getDetailsWidget());
                                   },
                                   child: tile.getChild()),
                             ),
