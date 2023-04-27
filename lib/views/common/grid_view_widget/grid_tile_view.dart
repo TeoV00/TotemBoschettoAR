@@ -23,6 +23,7 @@ class GridTileView extends StatelessWidget {
   Widget build(BuildContext context) {
     List<Widget> tilesRows = [];
     var rowIdxCount = (tiles.length / colCount).ceil();
+    List<GridTileItem> tilesCopy = tiles.toList();
 
     return LayoutBuilder(
       builder: (context, constraint) {
@@ -37,15 +38,17 @@ class GridTileView extends StatelessWidget {
           int rowCapacity = colCount;
           singleRow = [];
           int skipIdx = 0;
-          for (; rowCapacity > 0 && tiles.isNotEmpty;) {
-            GridTileItem item = tiles[skipIdx];
-            int itemSize = (item.getCellWidth() ?? 1).toInt();
+          for (; rowCapacity > 0 && tilesCopy.isNotEmpty;) {
+            GridTileItem item = tilesCopy[skipIdx];
+            int itemSize = item.getCellWidth();
             if (rowCapacity - itemSize >= 0) {
               singleRow.add(item);
-              tiles.remove(item);
+              tilesCopy.remove(item);
               rowCapacity = rowCapacity - itemSize;
             } else {
-              skipIdx = skipIdx + 1 > tiles.length ? tiles.length : skipIdx + 1;
+              skipIdx = skipIdx + 1 > tilesCopy.length
+                  ? tilesCopy.length
+                  : skipIdx + 1;
             }
           }
           tilesRows.add(
@@ -59,7 +62,7 @@ class GridTileView extends StatelessWidget {
                               padding: EdgeInsets.all(tileSpacing),
                               child: SizedBox(
                                 height: tileHeight,
-                                width: tileWidth * (tile.getCellWidth() ?? 1) -
+                                width: tileWidth * tile.getCellWidth() -
                                     (tile.getCellWidth() * tileSpacing),
                                 child: tile.getChild(),
                               ),
