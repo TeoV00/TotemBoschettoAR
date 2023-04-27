@@ -8,29 +8,16 @@ final infoTiles = <GridTileItem>[
   makeInfoTile(0),
   makeInfoTile(1),
   makeInfoTile(2),
-  InfoTile(
-    cellCountWidth: 2,
-    label:
+  makeImageInfoTile(
+    title:
         "Con questi progetti, l'Ateneo contribuisce agli obiettivi dell'agenda ONU 2030",
-    child: LayoutBuilder(builder: (context, constraint) {
-      return Row(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          Image.asset(
-            "$imagePath/sdg_remade.png",
-            width: 600,
-          ),
-        ],
-      );
-    }),
+    collSize: 2,
+    assetImage: "$imagePath/sdg_remade.png",
   ),
-  const InfoTile(
-    label: "ReMade",
-    hintText: "Tocca per scoprire di più",
-    child: Text(
-      "Il progetto che collega il risparmio della carta (processo di dematerializzazione) alla piantumazione proporzionale di alberi",
-      style: TextStyle(fontSize: 26, overflow: TextOverflow.fade),
-    ),
+  makeImageInfoTile(
+    title: "Progetto ReMade",
+    collSize: 1,
+    assetImage: "$imagePath/remade.png",
   ),
   const InfoTile(
     label: "empty",
@@ -50,15 +37,39 @@ InfoTile makeInfoTile(int idxInfo) {
   return InfoTile(
     label: title,
     hintText: "Tocca per scoprire di più",
-    detailsView: Column(children: [
-      Text(
-        title,
-        style: const TextStyle(fontSize: 28, fontWeight: FontWeight.bold),
-      ),
-      Text(body,
-          style: const TextStyle(
-            fontSize: 26,
-          )),
-    ]),
+    detailsView: Column(
+      children: [
+        Padding(
+          padding: const EdgeInsets.only(bottom: 20.0),
+          child: Text(
+            title,
+            style: const TextStyle(fontSize: 28, fontWeight: FontWeight.bold),
+          ),
+        ),
+        Text(body,
+            style: const TextStyle(
+              fontSize: 26,
+            )),
+      ],
+    ),
+  );
+}
+
+InfoTile makeImageInfoTile({
+  required String title,
+  required int collSize,
+  required String assetImage,
+}) {
+  return InfoTile(
+    cellCountWidth: collSize,
+    label: title,
+    child: LayoutBuilder(builder: (context, constraint) {
+      return Row(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          Image.asset(assetImage, width: constraint.maxWidth * 0.8),
+        ],
+      );
+    }),
   );
 }
