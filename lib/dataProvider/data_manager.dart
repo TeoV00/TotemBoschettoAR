@@ -29,6 +29,17 @@ class DataManager {
     return sharedUserData;
   }
 
+  Future<List<SharedData>> getTop10User() async {
+    const counLimit = 10;
+    var data = await getTotemData();
+    data.sort((a, b) => b.co2.compareTo(a.co2));
+    List<SharedData> top10 = data
+        .getRange(0, counLimit < data.length ? counLimit : data.length)
+        .toList();
+
+    return top10;
+  }
+
   String getCurrentTotemId() {
     return _totemId;
   }
