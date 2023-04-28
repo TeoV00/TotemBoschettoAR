@@ -1,41 +1,8 @@
-import 'package:flutter/widgets.dart';
+import 'package:flutter/material.dart';
+
 import 'package:totem_boschetto/constant_vars.dart';
 import 'package:totem_boschetto/dataProvider/data_manager.dart';
-
-const chartData = [
-  {
-    'nickname': 'Teo',
-    'pos': 1,
-  },
-  {
-    'nickname': 'Miki',
-    'pos': 2,
-  },
-  {
-    'nickname': 'Luca',
-    'pos': 3,
-  },
-  {
-    'nickname': 'Pippo',
-    'pos': 4,
-  },
-  {
-    'nickname': 'Luana',
-    'pos': 5,
-  },
-  {
-    'nickname': 'Manu',
-    'pos': 6,
-  },
-  {
-    'nickname': 'Manu',
-    'pos': 7,
-  },
-  {
-    'nickname': 'Manu',
-    'pos': 8,
-  }
-];
+import 'package:totem_boschetto/model/share_data_model.dart';
 
 class UserChartView extends StatelessWidget {
   final DataManager dataManager;
@@ -59,16 +26,28 @@ class UserChartView extends StatelessWidget {
               ],
             ),
           ),
-          makeListColumn(
-              itemCount: 5,
-              items: chartData
-                  .map((e) => Padding(
-                        padding: const EdgeInsets.all(8.0),
-                        child: ChartItem(
-                            nickname: e['nickname'] as String,
-                            position: e['pos'] as int),
-                      ))
-                  .toList()),
+          FutureBuilder<List<SharedData>>(
+            future: dataManager.getTop10User(),
+            builder: (context, snapshot) {
+              if (snapshot.hasData) {
+                List<Widget> chartItems = [];
+                int pos = 1;
+                for (SharedData e in (snapshot.data ?? [])) {
+                  chartItems.add(Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: ChartItem(
+                      nickname: e.nickname.toString(),
+                      position: pos,
+                    ),
+                  ));
+                  pos++;
+                }
+                return makeListColumn(itemCount: 5, items: chartItems);
+              } else {
+                return const CircularProgressIndicator();
+              }
+            },
+          ),
         ],
       ),
     );
