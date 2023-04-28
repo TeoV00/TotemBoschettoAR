@@ -9,10 +9,7 @@ Text makeTitle(String titleText) {
 }
 
 Widget makeHeader(String headerText) {
-  return Padding(
-    padding: const EdgeInsets.only(top: 40, bottom: 5),
-    child: _makeText(headerText, headerStyle),
-  );
+  return _makeText(headerText, headerStyle);
 }
 
 Text makeParagraph(String paragraphText) {
