@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:totem_boschetto/constant_vars.dart';
 import 'package:totem_boschetto/views/stats_page.dart';
 
 // COLORS
@@ -23,8 +24,11 @@ const paperLabel = 'CARTA RISPARMIATA';
 const awarenessLabel = 'CONSAPEVOLEZZA';
 
 // DESCRIPTIONS
-const treeDescr = '';
-const projDescr = '';
-const co2Descr = '';
-const paperDescr = '';
-const awarenessDescr = '';
+const treeDescr = 'Numero di alberi virtuali piantati dagli utenti';
+const projDescr =
+    'Quantità di progetti e attività coinvolte nel processo di dematerializzazione. ';
+const co2Descr = '$co2String assorbita dagli alberi del bosco virtuale.';
+const paperDescr =
+    'Quantità di fogli di carta in formato A4 risparmiati se il bosco virtuale fosse un bosco vero.';
+const awarenessDescr =
+    'Consapevolezza generale sul tema della dematerializzazione e sul risparmio di carta.';
