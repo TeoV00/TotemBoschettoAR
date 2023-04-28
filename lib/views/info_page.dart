@@ -32,7 +32,7 @@ class _InfoPageState extends State<InfoPage> implements GridViewNotifier {
                 return Container(
                   constraints: BoxConstraints(
                     maxWidth: constraint.maxWidth * 0.8,
-                    maxHeight: constraint.maxHeight * 0.5,
+                    maxHeight: constraint.maxHeight * 0.8,
                   ),
                   decoration: BoxDecoration(
                     color: Colors.white,
@@ -40,21 +40,24 @@ class _InfoPageState extends State<InfoPage> implements GridViewNotifier {
                   ),
                   child: Padding(
                     padding: const EdgeInsets.all(30),
-                    child: Column(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        detailsWidget ?? const SizedBox(),
-                        TextButton(
-                            onPressed: () {
-                              setState(() => {
-                                    detailsWidget = null,
-                                  });
-                            },
-                            child: const Text(
-                              "CHIUDI",
-                              style: TextStyle(fontSize: 25, color: mainColor),
-                            )),
-                      ],
+                    child: SingleChildScrollView(
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          detailsWidget ?? const SizedBox(),
+                          TextButton(
+                              onPressed: () {
+                                setState(() => {
+                                      detailsWidget = null,
+                                    });
+                              },
+                              child: const Text(
+                                "CHIUDI",
+                                style:
+                                    TextStyle(fontSize: 25, color: mainColor),
+                              )),
+                        ],
+                      ),
                     ),
                   ),
                 );
