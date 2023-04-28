@@ -16,7 +16,7 @@ class GridTileView extends StatelessWidget {
   final double tileSpacing;
   final List<GridTileItem> tiles;
   final Function? onTileTap;
-  final GridViewNotifier listener;
+  final GridViewNotifier? listener;
 
   const GridTileView({
     super.key,
@@ -25,7 +25,7 @@ class GridTileView extends StatelessWidget {
     required this.tiles,
     required this.tileSpacing,
     this.onTileTap,
-    required this.listener,
+    this.listener,
   });
 
   @override
@@ -78,7 +78,7 @@ class GridTileView extends StatelessWidget {
                                   onTap: () {
                                     onTileTap?.call();
                                     //set details to be showed
-                                    listener.notifyTileTapped(
+                                    listener?.notifyTileTapped(
                                         tile.getDetailsWidget());
                                   },
                                   child: tile.getChild()),
