@@ -2,9 +2,9 @@ import 'package:flutter/widgets.dart';
 import 'package:totem_boschetto/constant_vars.dart';
 import 'package:totem_boschetto/dataProvider/data_manager.dart';
 
-class Top10View extends StatelessWidget {
+class UserChartView extends StatelessWidget {
   final DataManager dataManager;
-  const Top10View({super.key, required this.dataManager});
+  const UserChartView({super.key, required this.dataManager});
 
   @override
   Widget build(BuildContext context) {
