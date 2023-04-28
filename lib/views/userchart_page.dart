@@ -42,7 +42,7 @@ class UserChartView extends StatelessWidget {
                   ));
                   pos++;
                 }
-                return makeListColumn(itemCount: 5, items: chartItems);
+                return makeListColumn(items: chartItems);
               } else {
                 return const CircularProgressIndicator();
               }
@@ -54,9 +54,7 @@ class UserChartView extends StatelessWidget {
   }
 }
 
-Widget makeListColumn({required int itemCount, required List<Widget> items}) {
-  List<Widget> secCol = [];
-
+Widget makeListColumn({required List<Widget> items}) {
   return Column(
     children: [
       Padding(
@@ -81,13 +79,10 @@ Widget makeListColumn({required int itemCount, required List<Widget> items}) {
               : const ChartItem(nickname: '', position: 3),
         ],
       ),
-      SizedBox(
-        height: 600,
-        child: GridView.count(
-          crossAxisCount: 2,
-          children:
-              items.length > 3 ? items.getRange(3, items.length).toList() : [],
-        ),
+      Column(
+        //TODO: split into 2 separated column
+        children:
+            items.length > 3 ? items.getRange(3, items.length).toList() : [],
       ),
     ],
   );
