@@ -25,10 +25,6 @@ class Top10View extends StatelessWidget {
                 nickname: "TeoC",
                 position: 2,
               ),
-              ChartItem(
-                nickname: "TeoC",
-                position: 3,
-              )
             ],
           ),
         )
@@ -45,36 +41,48 @@ class ChartItem extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      width: 440,
-      height: 102,
-      decoration: const BoxDecoration(
-          boxShadow: [boxShadowBottom],
-          borderRadius: BorderRadius.all(Radius.circular(10)),
-          color: Color.fromRGBO(243, 243, 243, 1)),
-      child: Padding(
-        padding: const EdgeInsets.all(15.0),
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-          children: [
-            position > 0 && position < 4
-                ? Image.asset(
-                    '$iconsPath/medals/medal-$position.png',
-                    height: 115,
-                  )
-                : Text(
+    return Stack(
+      children: [
+        Container(
+          width: 440,
+          height: 102,
+          decoration: const BoxDecoration(
+              boxShadow: [boxShadowBottom],
+              borderRadius: BorderRadius.all(Radius.circular(10)),
+              color: Color.fromRGBO(243, 243, 243, 1)),
+          child: Padding(
+            padding: const EdgeInsets.all(15.0),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              children: [
+                Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 20.0),
+                  child: Text(
                     "$position°",
                     style: const TextStyle(fontSize: 28),
                   ),
-            const Spacer(),
-            Text(
-              nickname,
-              style: const TextStyle(fontSize: 30, fontWeight: FontWeight.w600),
+                ),
+                const Spacer(),
+                Text(
+                  nickname,
+                  style: const TextStyle(
+                      fontSize: 30, fontWeight: FontWeight.w600),
+                ),
+                const Spacer(),
+              ],
             ),
-            const Spacer(),
-          ],
+          ),
         ),
-      ),
+        if (position > 0 && position < 4) ...[
+          Padding(
+            padding: const EdgeInsets.only(top: 15.0),
+            child: Image.asset(
+              '$iconsPath/medals/medal-$position.png',
+              height: 115,
+            ),
+          )
+        ]
+      ],
     );
   }
 }
