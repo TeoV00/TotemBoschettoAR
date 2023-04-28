@@ -3,7 +3,7 @@ import 'package:totem_boschetto/constant_vars.dart';
 import 'package:totem_boschetto/views/common/grid_view_widget/grid_tile_view.dart';
 import 'package:totem_boschetto/views/info_page/info_const.dart';
 import 'package:totem_boschetto/views/info_page/info_tile.dart';
-import 'package:totem_boschetto/views/text_style_infopage.dart';
+import 'package:totem_boschetto/views/common/text_style_infopage.dart';
 
 final infoTiles = <GridTileItem>[
   makeInfoTile(0),
@@ -76,16 +76,9 @@ InfoTile makeInfoTile(int idxInfo) {
     detailsView: Column(
       children: [
         Padding(
-          padding: const EdgeInsets.only(bottom: 20.0),
-          child: Text(
-            title,
-            style: const TextStyle(fontSize: 28, fontWeight: FontWeight.bold),
-          ),
-        ),
-        Text(body,
-            style: const TextStyle(
-              fontSize: 26,
-            )),
+            padding: const EdgeInsets.only(bottom: 20.0),
+            child: makeHeader(title)),
+        makeParagraph(body)
       ],
     ),
   );

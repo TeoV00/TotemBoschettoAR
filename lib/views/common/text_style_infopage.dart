@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 
-const titleStyle = TextStyle(fontSize: 60, fontWeight: FontWeight.w900);
-const headerStyle = TextStyle(fontSize: 40, fontWeight: FontWeight.w600);
-const paragraphStyle = TextStyle(fontSize: 30);
+const titleStyle = TextStyle(fontSize: 40, fontWeight: FontWeight.w900);
+const headerStyle = TextStyle(fontSize: 30, fontWeight: FontWeight.w600);
+const paragraphStyle = TextStyle(fontSize: 25);
 
 Text makeTitle(String titleText) {
   return _makeText(titleText, titleStyle);
