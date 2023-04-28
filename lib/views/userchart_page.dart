@@ -55,12 +55,7 @@ class UserChartView extends StatelessWidget {
 }
 
 Widget makeListColumn({required int itemCount, required List<Widget> items}) {
-  var firstCol = items.sublist(1, itemCount + 1);
-  var secCol = items.sublist(itemCount + 1);
-  // secCol.removeAt(0);
-  // secCol.insert(0, items.elementAt(2));
-  // firstCol.removeAt(1);
-  // firstCol.insert(firstCol.length, items.elementAt(itemCount));
+  List<Widget> secCol = [];
 
   return Column(
     children: [
@@ -68,21 +63,48 @@ Widget makeListColumn({required int itemCount, required List<Widget> items}) {
         padding: const EdgeInsets.all(20.0),
         child: Row(
           mainAxisAlignment: MainAxisAlignment.center,
-          children: [items.first],
+          children: [
+            items.isNotEmpty
+                ? items.first
+                : const ChartItem(nickname: '', position: 1)
+          ],
         ),
       ),
       Row(
-        crossAxisAlignment: CrossAxisAlignment.start,
         mainAxisAlignment: MainAxisAlignment.spaceAround,
         children: [
-          Column(
-            children: firstCol,
-          ),
-          Column(
-            children: secCol,
-          )
+          items.length >= 2
+              ? items[2]
+              : const ChartItem(nickname: '', position: 2),
+          items.length >= 3
+              ? items[3]
+              : const ChartItem(nickname: '', position: 3),
         ],
       ),
+      SizedBox(
+        height: 600,
+        child: GridView.count(
+          crossAxisCount: 2,
+          children:
+              items.length > 3 ? items.getRange(3, items.length).toList() : [],
+        ),
+      ),
+      // Row(
+      //   crossAxisAlignment: CrossAxisAlignment.start,
+      //   mainAxisAlignment: MainAxisAlignment.spaceAround,
+      //   children: [
+      //     Column(
+      //       children: items.length > 3
+      //           ? items.sublist(
+      //               3,
+      //             )
+      //           : [],
+      //     ),
+      //     Column(
+      //       children: secCol,
+      //     )
+      //   ],
+      // ),
     ],
   );
 }
