@@ -14,21 +14,20 @@ final infoTiles = <GridTileItem>[
     collSize: 2,
     assetImage: "$imagePath/sdg_remade.png",
   ),
-  makeImageInfoTile(
-    title: "Progetto ReMade",
-    collSize: 1,
-    assetImage: "$imagePath/remade.png",
-  ),
-  const InfoTile(
-    label: "empty",
+  InfoTile(
+    label: "Progetto ReMade",
     hintText: "Tocca per scoprire di più",
-    cellCountWidth: 3,
-    child: Text(
-      "lla carta (processo di dematerializzazione) alla piantumazione proporzionale di alberi",
-      style: TextStyle(fontSize: 26, overflow: TextOverflow.fade),
+    child: Row(
+      mainAxisAlignment: MainAxisAlignment.center,
+      children: [Image.asset("$imagePath/remade.png", height: 250.0)],
     ),
+    detailsView: makeRemadeProjectDetails(),
   ),
 ];
+
+Widget makeRemadeProjectDetails() {
+  return Text("data");
+}
 
 InfoTile makeInfoTile(int idxInfo) {
   final infoData = infoSections[idxInfo];
@@ -59,6 +58,7 @@ InfoTile makeImageInfoTile({
   required String title,
   required int collSize,
   required String assetImage,
+  double? height,
 }) {
   return InfoTile(
     cellCountWidth: collSize,
@@ -67,7 +67,12 @@ InfoTile makeImageInfoTile({
       return Row(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          Image.asset(assetImage, width: constraint.maxWidth * 0.8),
+          height != null
+              ? Image.asset(
+                  assetImage,
+                  height: height,
+                )
+              : Image.asset(assetImage, width: constraint.maxWidth * 0.8),
         ],
       );
     }),
