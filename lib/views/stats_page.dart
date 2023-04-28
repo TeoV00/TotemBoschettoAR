@@ -11,41 +11,57 @@ class StatisticPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    return FutureBuilder<Map<String, String>>(
+      future: dataManager.getStatistics(),
+      builder: (context, snapshot) {
+        return StatsGridView(statsData: snapshot.data);
+      },
+    );
+  }
+}
+
+class StatsGridView extends StatelessWidget {
+  final Map<String, String>? statsData;
+
+  const StatsGridView({super.key, required this.statsData});
+
+  @override
+  Widget build(BuildContext context) {
     var statInfo = <StatsCircle>[
       StatsCircle(
         color: treeColor,
         label: treeLabel,
         description: treeDescr,
         icon: treeIcon,
-        value: dataManager.getPlantedTree(),
+        value: _getStatValue(statId: "tree"),
       ),
       StatsCircle(
         color: projColor,
         label: projLabel,
         description: projDescr,
         icon: projIcon,
-        value: dataManager.getProjectInvolved(),
+        value: _getStatValue(statId: "proj"),
       ),
       StatsCircle(
         color: co2Color,
         label: co2Label,
         description: co2Descr,
         icon: co2Icon,
-        value: dataManager.getAvoidedCo2(),
+        value: _getStatValue(statId: "co2"),
       ),
       StatsCircle(
         color: paperColor,
         label: paperLabel,
         description: paperDescr,
         icon: paperIcon,
-        value: dataManager.getSavedPaper(),
+        value: _getStatValue(statId: "paper"),
       ),
       StatsCircle(
         color: awarenessColor,
         label: awarenessLabel,
         description: awarenessDescr,
         icon: awarenessIcon,
-        value: dataManager.getAwareness(),
+        value: _getStatValue(statId: "aware"),
       ),
     ];
 
@@ -54,5 +70,11 @@ class StatisticPage extends StatelessWidget {
         mainAxisSpacing: 60,
         crossAxisSpacing: 60,
         children: statInfo);
+  }
+
+  String _getStatValue({required String statId}) {
+    return statsData != null
+        ? statsData![statId] ?? "Dato non disponibile"
+        : "Caricamento...";
   }
 }
