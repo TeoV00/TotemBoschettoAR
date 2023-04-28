@@ -44,23 +44,9 @@ class DataManager {
     return _totemId;
   }
 
-  String getProjectInvolved() {
-    return '';
-  }
+  Future<Map<String, String>> getStatistics() async {
+    int totTree = 0;
 
-  String getAvoidedCo2() {
-    return '';
-  }
-
-  String getPlantedTree() {
-    return '';
-  }
-
-  String getAwareness() {
-    return '';
-  }
-
-  getSavedPaper() {
-    return '';
+    return {'tree': totTree.toString()};
   }
 }
