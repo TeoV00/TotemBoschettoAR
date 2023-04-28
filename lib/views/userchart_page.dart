@@ -73,11 +73,11 @@ Widget makeListColumn({required int itemCount, required List<Widget> items}) {
       Row(
         mainAxisAlignment: MainAxisAlignment.spaceAround,
         children: [
-          items.length >= 2
-              ? items[2]
+          items.length > 2
+              ? items[1]
               : const ChartItem(nickname: '', position: 2),
-          items.length >= 3
-              ? items[3]
+          items.length > 3
+              ? items[2]
               : const ChartItem(nickname: '', position: 3),
         ],
       ),
@@ -89,22 +89,6 @@ Widget makeListColumn({required int itemCount, required List<Widget> items}) {
               items.length > 3 ? items.getRange(3, items.length).toList() : [],
         ),
       ),
-      // Row(
-      //   crossAxisAlignment: CrossAxisAlignment.start,
-      //   mainAxisAlignment: MainAxisAlignment.spaceAround,
-      //   children: [
-      //     Column(
-      //       children: items.length > 3
-      //           ? items.sublist(
-      //               3,
-      //             )
-      //           : [],
-      //     ),
-      //     Column(
-      //       children: secCol,
-      //     )
-      //   ],
-      // ),
     ],
   );
 }
