@@ -1,6 +1,8 @@
 import 'dart:developer';
+
 import 'package:firebase_database/firebase_database.dart';
 import 'package:totem_boschetto/model/share_data_model.dart';
+import 'package:totem_boschetto/unit_converter.dart';
 
 class DataManager {
   final String _totemId = "ces_remade";
@@ -45,8 +47,23 @@ class DataManager {
   }
 
   Future<Map<String, String>> getStatistics() async {
-    int totTree = 0;
+    List<SharedData> totemData = await getTotemData();
+    double co2 = 0;
+    int trees = 0;
+    int paper = 0;
 
-    return {'tree': totTree.toString()};
+    for (SharedData usr in totemData) {
+      co2 += usr.co2;
+      trees += usr.treesCount;
+      paper += usr.paper;
+    }
+
+    return {
+      'tree': trees.toString(),
+      'co2': "$co2 Kg",
+      'paper': "$paper fogli A4",
+      'ePower':
+          "${UnitConverter.fromCo2ToKiloWatt(co2).toStringAsFixed(0)} KWh",
+    };
   }
 }
