@@ -64,10 +64,10 @@ class StatsGridView extends StatelessWidget {
         value: _getStatValue(statId: "aware"),
       ),
       StatsCircle(
-        color: awarenessColor,
-        label: awarenessLabel,
-        description: awarenessDescr,
-        icon: awarenessIcon,
+        color: ePowerColor,
+        label: ePowerLabel,
+        description: ePowerDescr,
+        icon: ePowerIcon,
         value: _getStatValue(statId: "ePower"),
       ),
     ];
