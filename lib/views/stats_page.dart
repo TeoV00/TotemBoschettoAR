@@ -63,6 +63,13 @@ class StatsGridView extends StatelessWidget {
         icon: awarenessIcon,
         value: _getStatValue(statId: "aware"),
       ),
+      StatsCircle(
+        color: awarenessColor,
+        label: awarenessLabel,
+        description: awarenessDescr,
+        icon: awarenessIcon,
+        value: _getStatValue(statId: "ePower"),
+      ),
     ];
 
     return GridView.count(
