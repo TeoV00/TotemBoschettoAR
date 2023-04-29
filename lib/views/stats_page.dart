@@ -11,7 +11,7 @@ class StatisticPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return FutureBuilder<Map<String, String>>(
+    return FutureBuilder<Map<StatId, String>>(
       future: dataManager.getStatistics(),
       builder: (context, snapshot) {
         return StatsGridView(statsData: snapshot.data);
@@ -21,7 +21,7 @@ class StatisticPage extends StatelessWidget {
 }
 
 class StatsGridView extends StatelessWidget {
-  final Map<String, String>? statsData;
+  final Map<StatId, String>? statsData;
 
   const StatsGridView({super.key, required this.statsData});
 
@@ -33,42 +33,42 @@ class StatsGridView extends StatelessWidget {
         label: treeLabel,
         description: treeDescr,
         icon: treeIcon,
-        value: _getStatValue(statId: "tree"),
+        value: _getStatValue(statId: StatId.tree),
       ),
       StatsCircle(
         color: projColor,
         label: projLabel,
         description: projDescr,
         icon: projIcon,
-        value: _getStatValue(statId: "proj"),
+        value: _getStatValue(statId: StatId.proj),
       ),
       StatsCircle(
         color: co2Color,
         label: co2Label,
         description: co2Descr,
         icon: co2Icon,
-        value: _getStatValue(statId: "co2"),
+        value: _getStatValue(statId: StatId.co2),
       ),
       StatsCircle(
         color: paperColor,
         label: paperLabel,
         description: paperDescr,
         icon: paperIcon,
-        value: _getStatValue(statId: "paper"),
-      ),
-      StatsCircle(
-        color: awarenessColor,
-        label: awarenessLabel,
-        description: awarenessDescr,
-        icon: awarenessIcon,
-        value: _getStatValue(statId: "aware"),
+        value: _getStatValue(statId: StatId.paper),
       ),
       StatsCircle(
         color: ePowerColor,
         label: ePowerLabel,
         description: ePowerDescr,
         icon: ePowerIcon,
-        value: _getStatValue(statId: "ePower"),
+        value: _getStatValue(statId: StatId.ePower),
+      ),
+      StatsCircle(
+        color: fuelColor,
+        label: fuelLabel,
+        description: fuelDescr,
+        icon: fuelIcon,
+        value: _getStatValue(statId: StatId.fuel),
       ),
     ];
 
@@ -79,7 +79,7 @@ class StatsGridView extends StatelessWidget {
         children: statInfo);
   }
 
-  String _getStatValue({required String statId}) {
+  String _getStatValue({required StatId statId}) {
     return statsData != null
         ? statsData![statId] ?? "Dato non disponibile"
         : "Caricamento...";

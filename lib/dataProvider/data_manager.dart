@@ -3,6 +3,7 @@ import 'dart:developer';
 import 'package:firebase_database/firebase_database.dart';
 import 'package:totem_boschetto/model/share_data_model.dart';
 import 'package:totem_boschetto/unit_converter.dart';
+import 'package:totem_boschetto/views/statistic_widgets/statistics_constant.dart';
 
 class DataManager {
   final String _totemId = "ces_remade";
@@ -46,7 +47,7 @@ class DataManager {
     return _totemId;
   }
 
-  Future<Map<String, String>> getStatistics() async {
+  Future<Map<StatId, String>> getStatistics() async {
     List<SharedData> totemData = await getTotemData();
     double co2 = 0;
     int trees = 0;
@@ -59,11 +60,13 @@ class DataManager {
     }
 
     return {
-      'tree': trees.toString(),
-      'co2': "$co2 Kg",
-      'paper': "$paper fogli A4",
-      'ePower':
+      StatId.tree: trees.toString(),
+      StatId.co2: "$co2 Kg",
+      StatId.paper: "$paper fogli A4",
+      StatId.ePower:
           "${UnitConverter.fromCo2ToKiloWatt(co2).toStringAsFixed(0)} KWh",
+      StatId.fuel:
+          "${UnitConverter.fromCo2ToBenzinaLiter(co2).toStringAsFixed(0)} Litri",
     };
   }
 }
