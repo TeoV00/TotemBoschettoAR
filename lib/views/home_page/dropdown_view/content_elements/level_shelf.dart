@@ -1,4 +1,3 @@
-
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:totem_boschetto/views/common/assets_path.dart';
@@ -50,7 +49,7 @@ class LevelShelf extends StatelessWidget {
                   style: const TextStyle(
                     fontWeight: FontWeight.w500,
                     fontSize: 22,
-                  ),
+                  ),  
                 ),
               ),
             ),
@@ -61,11 +60,11 @@ class LevelShelf extends StatelessWidget {
   }
 
   Widget _getLevelPicture({required final int level}) {
-    String levelPath = "$iconLevelPath$level.svg";
+    String levelPath = "$iconLevelPath$level.png";
     return SizedBox(
       height: 150,
       width: 120,
-      child: SvgPicture.asset(levelPath),
+      child: Image.asset(levelPath),
     );
   }
 }
