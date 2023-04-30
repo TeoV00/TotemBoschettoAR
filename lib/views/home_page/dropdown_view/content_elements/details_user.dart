@@ -24,11 +24,11 @@ class UserDetails extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.start,
         children: [
           _getLabelValue("Alberi scoperti", treesCount),
-          _getLabelValue("Co2", co2),
-          _getLabelValue(
-              "Elettricità Kwh", UnitConverter.fromCo2ToKiloWatt(co2).round()),
-          _getLabelValue(
-              "Benzina L.", UnitConverter.fromCo2ToBenzinaLiter(co2)),
+          _getLabelValue("Co2", co2.toStringAsFixed(0)),
+          _getLabelValue("Elettricità Kwh",
+              UnitConverter.fromCo2ToKiloWatt(co2).toStringAsFixed(1)),
+          _getLabelValue("Benzina L.",
+              UnitConverter.fromCo2ToBenzinaLiter(co2).toStringAsFixed(1)),
           _getLabelValue("N. Badge", badgeCount),
         ],
       ),
