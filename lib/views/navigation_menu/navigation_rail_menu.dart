@@ -5,7 +5,7 @@ import 'package:totem_boschetto/views/home_page.dart';
 import 'package:totem_boschetto/views/info_page.dart';
 import 'package:totem_boschetto/views/navigation_menu/qrcode_nav_section.dart';
 import 'package:totem_boschetto/views/stats_page.dart';
-import 'package:totem_boschetto/views/userchart_page.dart';
+import 'package:totem_boschetto/views/chart_page.dart';
 
 /// Text style for selected item in navigation rail
 const selectedTextStyle = TextStyle(
