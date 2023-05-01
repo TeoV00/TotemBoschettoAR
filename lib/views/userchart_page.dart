@@ -30,19 +30,7 @@ class UserChartView extends StatelessWidget {
             future: dataManager.getTop10User(),
             builder: (context, snapshot) {
               if (snapshot.hasData) {
-                List<Widget> chartItems = [];
-                int pos = 1;
-                for (SharedData e in (snapshot.data ?? [])) {
-                  chartItems.add(Padding(
-                    padding: const EdgeInsets.all(8.0),
-                    child: ChartItem(
-                      nickname: e.nickname.toString(),
-                      position: pos,
-                    ),
-                  ));
-                  pos++;
-                }
-                return makeListColumn(items: chartItems);
+                return Chart();
               } else {
                 return const CircularProgressIndicator();
               }
@@ -54,90 +42,117 @@ class UserChartView extends StatelessWidget {
   }
 }
 
-Widget makeListColumn({required List<Widget> items}) {
-  return Column(
-    children: [
-      Padding(
-        padding: const EdgeInsets.all(20.0),
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            items.isNotEmpty
-                ? items.first
-                : const ChartItem(nickname: '', position: 1)
-          ],
-        ),
-      ),
-      Row(
-        mainAxisAlignment: MainAxisAlignment.spaceAround,
-        children: [
-          items.length > 2
-              ? items[1]
-              : const ChartItem(nickname: '', position: 2),
-          items.length > 3
-              ? items[2]
-              : const ChartItem(nickname: '', position: 3),
-        ],
-      ),
-      Column(
-        //TODO: split into 2 separated column
-        children:
-            items.length > 3 ? items.getRange(3, items.length).toList() : [],
-      ),
-    ],
-  );
+class Chart extends StatefulWidget {
+  const Chart({super.key});
+
+  @override
+  State<Chart> createState() => _ChartState();
 }
 
-class ChartItem extends StatelessWidget {
-  final String nickname;
-  final int position;
-
-  const ChartItem({super.key, required this.nickname, required this.position});
+class _ChartState extends State<Chart> {
+  List<SharedData>? data;
 
   @override
   Widget build(BuildContext context) {
-    return Stack(
+    List<ChartItem> chartItems = [];
+    for (int i = 1; i <= 10; i++) {
+      chartItems.add(ChartItem(
+        position: i,
+      ));
+    }
+
+    return Column(
       children: [
-        Container(
-          width: 440,
-          height: 102,
-          decoration: const BoxDecoration(
-              boxShadow: [boxShadowBottom],
-              borderRadius: BorderRadius.all(Radius.circular(10)),
-              color: Color.fromRGBO(243, 243, 243, 1)),
-          child: Padding(
-            padding: const EdgeInsets.all(15.0),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-              children: [
-                Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 20.0),
-                  child: Text(
-                    "$position°",
-                    style: const TextStyle(fontSize: 28),
-                  ),
-                ),
-                const Spacer(),
-                Text(
-                  nickname,
-                  style: const TextStyle(
-                      fontSize: 30, fontWeight: FontWeight.w600),
-                ),
-                const Spacer(),
-              ],
-            ),
+        Padding(
+          padding: const EdgeInsets.all(20.0),
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [chartItems[0]],
           ),
         ),
-        if (position > 0 && position < 4) ...[
-          Padding(
-            padding: const EdgeInsets.only(top: 15.0),
-            child: Image.asset(
-              '$iconsPath/medals/medal-$position.png',
-              height: 115,
-            ),
-          )
-        ]
+        Row(
+          mainAxisAlignment: MainAxisAlignment.spaceAround,
+          children: [
+            chartItems[1],
+            chartItems[2],
+          ],
+        ),
+        Row(
+          children: [
+            Column(children: chartItems.sublist(3, 7)),
+            Column(children: chartItems.sublist(7)),
+          ],
+        ),
       ],
     );
+  }
+}
+
+class ChartItem extends StatefulWidget {
+  final int position;
+  const ChartItem({super.key, required this.position});
+
+  @override
+  State<ChartItem> createState() => _ChartItemState();
+}
+
+class _ChartItemState extends State<ChartItem> {
+  String? nickname;
+
+  @override
+  Widget build(BuildContext context) {
+    int position = widget.position;
+    return Padding(
+      padding: const EdgeInsets.all(10.0),
+      child: Stack(
+        children: [
+          Container(
+            width: 440,
+            height: 102,
+            decoration: const BoxDecoration(
+                boxShadow: [boxShadowBottom],
+                borderRadius: BorderRadius.all(Radius.circular(10)),
+                color: Color.fromRGBO(243, 243, 243, 1)),
+            child: Padding(
+              padding: const EdgeInsets.all(15.0),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                children: [
+                  Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 20.0),
+                    child: Text(
+                      "$position°",
+                      style: const TextStyle(fontSize: 28),
+                    ),
+                  ),
+                  const Spacer(),
+                  Text(
+                    nickname ?? '',
+                    style: const TextStyle(
+                        fontSize: 30, fontWeight: FontWeight.w600),
+                  ),
+                  const Spacer(),
+                ],
+              ),
+            ),
+          ),
+          if (position > 0 && position < 4) ...[
+            Padding(
+              padding: const EdgeInsets.only(top: 15.0),
+              child: Image.asset(
+                '$iconsPath/medals/medal-$position.png',
+                height: 115,
+              ),
+            )
+          ]
+        ],
+      ),
+    );
+  }
+
+  void setData({required String nickname}) {
+    setState(() {
+      this.nickname = nickname;
+    });
   }
 }
