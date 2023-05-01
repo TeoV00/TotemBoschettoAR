@@ -32,13 +32,22 @@ class DataManager {
     return sharedUserData;
   }
 
-  Future<List<SharedData>> getTop10User() async {
+  /// Get ordered list of 10 user SharedData. If fecthed data from online db
+  /// are less than 10 the correspodnit absent item in list is set top null.
+  /// return List of SharedData
+  Future<List<SharedData?>> getTop10User() async {
     const counLimit = 10;
     var data = await getTotemData();
     data.sort((a, b) => b.co2.compareTo(a.co2));
-    List<SharedData> top10 = data
-        .getRange(0, counLimit < data.length ? counLimit : data.length)
-        .toList();
+
+    List<SharedData?> top10 = [];
+    for (int i = 0; i < counLimit; i++) {
+      if (i < data.length) {
+        top10.add(data[i]);
+      } else {
+        top10.add(null);
+      }
+    }
 
     return top10;
   }
