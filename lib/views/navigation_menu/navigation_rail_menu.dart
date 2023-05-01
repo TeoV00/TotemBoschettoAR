@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:totem_boschetto/dataProvider/data_manager.dart';
@@ -40,20 +42,8 @@ class NavRailMenu extends StatefulWidget {
   State<NavRailMenu> createState() => _NavRailMenuState();
 }
 
-class _NavRailMenuState extends State<NavRailMenu>
-    implements DataUpdatedNotifier {
+class _NavRailMenuState extends State<NavRailMenu> {
   int _selectedIndex = 0;
-
-  @override
-  void initState() {
-    super.initState();
-    widget.dataManager.addDataUpdateObserver(this);
-  }
-
-  @override
-  void notifyDataUpdate() {
-    // TODO: implement notifyDataUpdate
-  }
 
   @override
   Widget build(BuildContext context) {

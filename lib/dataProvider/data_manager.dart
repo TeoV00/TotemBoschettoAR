@@ -1,39 +1,22 @@
-import 'dart:developer';
-
 import 'package:firebase_database/firebase_database.dart';
+import 'package:flutter/material.dart';
 import 'package:totem_boschetto/model/share_data_model.dart';
 import 'package:totem_boschetto/unit_converter.dart';
 import 'package:totem_boschetto/views/statistic_widgets/statistics_constant.dart';
 
-abstract class DataUpdatedNotifier {
-  void notifyDataUpdate();
-}
-
-class DataManager {
+class DataManager extends ChangeNotifier {
   final String _totemId = "ces_remade";
-  final List<DataUpdatedNotifier> _observerList = [];
+
   late final DatabaseReference dbRef;
 
   DataManager() {
     dbRef = FirebaseDatabase.instance.ref("totems/$_totemId");
     dbRef.onChildAdded.listen((event) {
-      log("Dati utente caricati correttamente ");
-      _notifyObservers();
+      notifyListeners();
     });
     dbRef.onChildChanged.listen((event) {
-      log("Dati caricati correttamente ");
-      _notifyObservers();
+      notifyListeners();
     });
-  }
-
-  void addDataUpdateObserver(DataUpdatedNotifier observer) {
-    _observerList.add(observer);
-  }
-
-  void _notifyObservers() {
-    for (var element in _observerList) {
-      element.notifyDataUpdate;
-    }
   }
 
   Future<List<SharedData>> getTotemData() async {
