@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'package:totem_boschetto/dataProvider/data_manager.dart';
 import 'package:totem_boschetto/model/share_data_model.dart';
 import 'package:totem_boschetto/views/home_page/dropdown_view/dropdown_container.dart';
@@ -11,8 +12,7 @@ const double forestPadding = 30.0;
 const double leftOffsetInfoMenu = 30.0;
 
 class HomePage extends StatefulWidget {
-  final DataManager dataManager;
-  const HomePage({super.key, required this.dataManager});
+  const HomePage({super.key});
 
   @override
   State<HomePage> createState() => _HomePageState();
@@ -30,7 +30,6 @@ class _HomePageState extends State<HomePage> {
 
   @override
   Widget build(BuildContext context) {
-    DataManager dataManager = widget.dataManager;
     return Container(
       color: const Color.fromRGBO(236, 255, 221, 1),
       child: Center(
@@ -42,35 +41,38 @@ class _HomePageState extends State<HomePage> {
                 right: forestPadding,
                 top: forestPadding * 2,
               ),
-              child: FutureBuilder<List<SharedData>>(
-                future: dataManager.getTotemData(),
-                builder: (context, snapshot) {
-                  if (snapshot.hasData) {
-                    return GridView.count(
-                      crossAxisCount: 20,
-                      mainAxisSpacing: 10,
-                      crossAxisSpacing: 10,
-                      children: (snapshot.data ?? []).map(
-                        (userDataTree) {
-                          return GestureDetector(
-                            onTap: () {
-                              setState(() {
-                                userData = userDataTree;
-                                showDetails = !showDetails;
-                              });
-                            },
-                            child: ForestTree(level: userDataTree.level),
-                          );
-                        },
-                      ).toList(),
-                    );
-                  } else {
-                    return const Center(
-                        child: CircularProgressIndicator(
-                      color: Color.fromRGBO(161, 204, 130, 1),
-                    ));
-                  }
-                },
+              child: Consumer<DataManager>(
+                builder: (context, dataManager, child) =>
+                    FutureBuilder<List<SharedData>>(
+                  future: dataManager.getTotemData(),
+                  builder: (context, snapshot) {
+                    if (snapshot.hasData) {
+                      return GridView.count(
+                        crossAxisCount: 20,
+                        mainAxisSpacing: 10,
+                        crossAxisSpacing: 10,
+                        children: (snapshot.data ?? []).map(
+                          (userDataTree) {
+                            return GestureDetector(
+                              onTap: () {
+                                setState(() {
+                                  userData = userDataTree;
+                                  showDetails = !showDetails;
+                                });
+                              },
+                              child: ForestTree(level: userDataTree.level),
+                            );
+                          },
+                        ).toList(),
+                      );
+                    } else {
+                      return const Center(
+                          child: CircularProgressIndicator(
+                        color: Color.fromRGBO(161, 204, 130, 1),
+                      ));
+                    }
+                  },
+                ),
               )),
           Padding(
             padding: const EdgeInsets.only(right: leftOffsetInfoMenu),
