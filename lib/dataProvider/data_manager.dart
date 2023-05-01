@@ -17,6 +17,9 @@ class DataManager extends ChangeNotifier {
     dbRef.onChildChanged.listen((event) {
       notifyListeners();
     });
+    dbRef.onChildRemoved.listen((event) {
+      notifyListeners();
+    });
   }
 
   Future<List<SharedData>> getTotemData() async {
