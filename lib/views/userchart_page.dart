@@ -50,17 +50,20 @@ class Chart extends StatefulWidget {
 }
 
 class _ChartState extends State<Chart> {
-  List<SharedData>? data;
+  List<ChartItem> chartItems = [];
 
   @override
-  Widget build(BuildContext context) {
-    List<ChartItem> chartItems = [];
+  void initState() {
+    super.initState();
     for (int i = 1; i <= 10; i++) {
       chartItems.add(ChartItem(
         position: i,
       ));
     }
+  }
 
+  @override
+  Widget build(BuildContext context) {
     return Column(
       children: [
         Padding(
