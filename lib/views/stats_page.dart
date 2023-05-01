@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'package:totem_boschetto/dataProvider/data_manager.dart';
 import 'package:totem_boschetto/views/statistic_widgets/statistics_constant.dart';
 import 'package:totem_boschetto/views/statistic_widgets/stats_circle.dart';
@@ -6,16 +7,18 @@ import 'package:totem_boschetto/views/statistic_widgets/stats_circle.dart';
 const statIconPath = "/icons/statistics/";
 
 class StatisticPage extends StatelessWidget {
-  final DataManager dataManager;
-  const StatisticPage({super.key, required this.dataManager});
+  const StatisticPage({super.key});
 
   @override
   Widget build(BuildContext context) {
-    return FutureBuilder<Map<StatId, String>>(
-      future: dataManager.getStatistics(),
-      builder: (context, snapshot) {
-        return StatsGridView(statsData: snapshot.data);
-      },
+    return Consumer<DataManager>(
+      builder: (context, dataManager, child) =>
+          FutureBuilder<Map<StatId, String>>(
+        future: dataManager.getStatistics(),
+        builder: (context, snapshot) {
+          return StatsGridView(statsData: snapshot.data);
+        },
+      ),
     );
   }
 }
