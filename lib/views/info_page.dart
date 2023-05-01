@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:totem_boschetto/constant_vars.dart';
 import 'package:totem_boschetto/views/common/grid_view_widget/grid_tile_view.dart';
 import 'package:totem_boschetto/views/info_page/info_tile_data.dart';
 
@@ -26,7 +25,7 @@ class _InfoPageState extends State<InfoPage> implements GridViewNotifier {
         ),
         if (detailsWidget != null) ...[
           Container(
-            color: const Color.fromARGB(22, 0, 0, 0),
+            color: const Color.fromARGB(64, 0, 0, 0),
             child: Center(
               child: LayoutBuilder(builder: (context, constraint) {
                 return Column(
