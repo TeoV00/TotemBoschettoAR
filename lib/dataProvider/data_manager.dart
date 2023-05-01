@@ -5,8 +5,13 @@ import 'package:totem_boschetto/model/share_data_model.dart';
 import 'package:totem_boschetto/unit_converter.dart';
 import 'package:totem_boschetto/views/statistic_widgets/statistics_constant.dart';
 
+abstract class DataUpdatedNotifier {
+  void notifyDataUpdate();
+}
+
 class DataManager {
   final String _totemId = "ces_remade";
+  final List<DataUpdatedNotifier> observerList = [];
   late final DatabaseReference dbRef;
 
   DataManager() {
@@ -17,6 +22,10 @@ class DataManager {
     dbRef.onChildChanged.listen((event) {
       log("Dati caricati correttamente ");
     });
+  }
+
+  void addDataUpdateObserver(DataUpdatedNotifier observer) {
+    observerList.add(observer);
   }
 
   Future<List<SharedData>> getTotemData() async {
