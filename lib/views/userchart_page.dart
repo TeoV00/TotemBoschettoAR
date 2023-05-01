@@ -26,11 +26,13 @@ class UserChartView extends StatelessWidget {
               ],
             ),
           ),
-          FutureBuilder<List<SharedData>>(
+          FutureBuilder<List<SharedData?>>(
             future: dataManager.getTop10User(),
             builder: (context, snapshot) {
               if (snapshot.hasData) {
-                return Chart();
+                return Chart(
+                  data: snapshot.data!,
+                );
               } else {
                 return const CircularProgressIndicator();
               }
@@ -42,28 +44,23 @@ class UserChartView extends StatelessWidget {
   }
 }
 
-class Chart extends StatefulWidget {
-  const Chart({super.key});
-
-  @override
-  State<Chart> createState() => _ChartState();
-}
-
-class _ChartState extends State<Chart> {
-  List<ChartItem> chartItems = [];
-
-  @override
-  void initState() {
-    super.initState();
-    for (int i = 1; i <= 10; i++) {
-      chartItems.add(ChartItem(
-        position: i,
-      ));
-    }
-  }
+class Chart extends StatelessWidget {
+  final List<SharedData?> data;
+  static int chartItemCount = 10;
+  const Chart({super.key, required this.data});
 
   @override
   Widget build(BuildContext context) {
+    List<ChartItem> chartItems = [];
+
+    for (int i = 1; i <= chartItemCount; i++) {
+      String nickname = data[i - 1] != null ? data[i - 1]!.nickname : '';
+      chartItems.add(ChartItem(
+        nickname: nickname,
+        position: i,
+      ));
+    }
+
     return Column(
       children: [
         Padding(
@@ -80,31 +77,29 @@ class _ChartState extends State<Chart> {
             chartItems[2],
           ],
         ),
-        Row(
-          children: [
-            Column(children: chartItems.sublist(3, 7)),
-            Column(children: chartItems.sublist(7)),
-          ],
+        Padding(
+          padding: const EdgeInsets.only(top: 50.0),
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceAround,
+            children: [
+              Column(children: chartItems.sublist(3, 7)),
+              Column(children: chartItems.sublist(7)),
+            ],
+          ),
         ),
       ],
     );
   }
 }
 
-class ChartItem extends StatefulWidget {
+class ChartItem extends StatelessWidget {
   final int position;
-  const ChartItem({super.key, required this.position});
+  final String nickname;
 
-  @override
-  State<ChartItem> createState() => _ChartItemState();
-}
-
-class _ChartItemState extends State<ChartItem> {
-  String? nickname;
+  const ChartItem({super.key, required this.position, required this.nickname});
 
   @override
   Widget build(BuildContext context) {
-    int position = widget.position;
     return Padding(
       padding: const EdgeInsets.all(10.0),
       child: Stack(
@@ -130,7 +125,7 @@ class _ChartItemState extends State<ChartItem> {
                   ),
                   const Spacer(),
                   Text(
-                    nickname ?? '',
+                    nickname,
                     style: const TextStyle(
                         fontSize: 30, fontWeight: FontWeight.w600),
                   ),
@@ -151,11 +146,5 @@ class _ChartItemState extends State<ChartItem> {
         ],
       ),
     );
-  }
-
-  void setData({required String nickname}) {
-    setState(() {
-      this.nickname = nickname;
-    });
   }
 }
