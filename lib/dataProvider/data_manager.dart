@@ -11,21 +11,29 @@ abstract class DataUpdatedNotifier {
 
 class DataManager {
   final String _totemId = "ces_remade";
-  final List<DataUpdatedNotifier> observerList = [];
+  final List<DataUpdatedNotifier> _observerList = [];
   late final DatabaseReference dbRef;
 
   DataManager() {
     dbRef = FirebaseDatabase.instance.ref("totems/$_totemId");
     dbRef.onChildAdded.listen((event) {
       log("Dati utente caricati correttamente ");
+      _notifyObservers();
     });
     dbRef.onChildChanged.listen((event) {
       log("Dati caricati correttamente ");
+      _notifyObservers();
     });
   }
 
   void addDataUpdateObserver(DataUpdatedNotifier observer) {
-    observerList.add(observer);
+    _observerList.add(observer);
+  }
+
+  void _notifyObservers() {
+    for (var element in _observerList) {
+      element.notifyDataUpdate;
+    }
   }
 
   Future<List<SharedData>> getTotemData() async {
