@@ -29,37 +29,31 @@ class _InfoPageState extends State<InfoPage> implements GridViewNotifier {
             color: const Color.fromARGB(22, 0, 0, 0),
             child: Center(
               child: LayoutBuilder(builder: (context, constraint) {
-                return Container(
-                  constraints: BoxConstraints(
-                    maxWidth: constraint.maxWidth * 0.8,
-                    maxHeight: constraint.maxHeight * 0.8,
-                  ),
-                  decoration: BoxDecoration(
-                    color: Colors.white,
-                    borderRadius: BorderRadius.circular(10),
-                  ),
-                  child: Padding(
-                    padding: const EdgeInsets.all(30),
-                    child: SingleChildScrollView(
-                      child: Column(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          detailsWidget ?? const SizedBox(),
-                          TextButton(
-                              onPressed: () {
-                                setState(() => {
-                                      detailsWidget = null,
-                                    });
-                              },
-                              child: const Text(
-                                "CHIUDI",
-                                style:
-                                    TextStyle(fontSize: 25, color: mainColor),
-                              )),
-                        ],
+                return Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Container(
+                      constraints: BoxConstraints(
+                        maxWidth: constraint.maxWidth * 0.8,
+                        maxHeight: constraint.maxHeight * 0.8,
+                      ),
+                      decoration: BoxDecoration(
+                        color: Colors.white,
+                        borderRadius: BorderRadius.circular(10),
+                      ),
+                      child: Padding(
+                        padding: const EdgeInsets.all(30),
+                        child: SingleChildScrollView(
+                          child: Column(
+                            children: [
+                              detailsWidget ?? const SizedBox(),
+                            ],
+                          ),
+                        ),
                       ),
                     ),
-                  ),
+                    _makeCloseDetailsButton(),
+                  ],
                 );
               }),
             ),
@@ -74,5 +68,35 @@ class _InfoPageState extends State<InfoPage> implements GridViewNotifier {
     setState(() {
       detailsWidget = detailsView;
     });
+  }
+
+  Widget _makeCloseDetailsButton() {
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.center,
+      children: [
+        Padding(
+          padding: const EdgeInsets.all(15.0),
+          child: TextButton(
+            onPressed: () {
+              setState(() => {
+                    detailsWidget = null,
+                  });
+            },
+            child: Container(
+              width: 100,
+              decoration: BoxDecoration(
+                color: Colors.white,
+                borderRadius: BorderRadius.circular(10),
+              ),
+              child: const Icon(
+                Icons.close,
+                size: 60,
+                color: Colors.black,
+              ),
+            ),
+          ),
+        ),
+      ],
+    );
   }
 }
