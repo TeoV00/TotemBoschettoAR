@@ -40,8 +40,20 @@ class NavRailMenu extends StatefulWidget {
   State<NavRailMenu> createState() => _NavRailMenuState();
 }
 
-class _NavRailMenuState extends State<NavRailMenu> {
-  int _selectedIndex = 2;
+class _NavRailMenuState extends State<NavRailMenu>
+    implements DataUpdatedNotifier {
+  int _selectedIndex = 0;
+
+  @override
+  void initState() {
+    super.initState();
+    widget.dataManager.addDataUpdateObserver(this);
+  }
+
+  @override
+  void notifyDataUpdate() {
+    // TODO: implement notifyDataUpdate
+  }
 
   @override
   Widget build(BuildContext context) {
