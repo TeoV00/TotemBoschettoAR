@@ -52,11 +52,9 @@ class _NavRailMenuState extends State<NavRailMenu> {
     var emptyLeadingSpace = screenSize.height * 0.2;
 
     Map<NavigationRailDestination, Widget> destinations = {
-      noIconDestinationRail("Home"): HomePage(dataManager: widget.dataManager),
-      noIconDestinationRail("Statistiche"):
-          StatisticPage(dataManager: widget.dataManager),
-      noIconDestinationRail("Classifica Utenti"):
-          UserChartView(dataManager: widget.dataManager),
+      noIconDestinationRail("Home"): const HomePage(),
+      noIconDestinationRail("Statistiche"): const StatisticPage(),
+      noIconDestinationRail("Classifica Utenti"): const UserChartView(),
       noIconDestinationRail("Informazioni"): const InfoPage(),
     };
 
