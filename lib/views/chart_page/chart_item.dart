@@ -1,12 +1,16 @@
-
 import 'package:flutter/material.dart';
 import 'package:totem_boschetto/constant_vars.dart';
 
 class ChartItem extends StatelessWidget {
   final int position;
   final String nickname;
+  final int co2Kg;
 
-  const ChartItem({super.key, required this.position, required this.nickname});
+  const ChartItem(
+      {super.key,
+      required this.position,
+      required this.nickname,
+      required this.co2Kg});
 
   @override
   Widget build(BuildContext context) {
@@ -34,10 +38,21 @@ class ChartItem extends StatelessWidget {
                     ),
                   ),
                   const Spacer(),
-                  Text(
-                    nickname,
-                    style: const TextStyle(
-                        fontSize: 30, fontWeight: FontWeight.w600),
+                  Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Text(
+                        nickname,
+                        style: const TextStyle(
+                            fontSize: 30, fontWeight: FontWeight.w600),
+                      ),
+                      Text(
+                        "$co2Kg Kg di $co2String",
+                        style: const TextStyle(
+                            fontSize: 20,
+                            color: Color.fromARGB(255, 61, 61, 61)),
+                      )
+                    ],
                   ),
                   const Spacer(),
                 ],

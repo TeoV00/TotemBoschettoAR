@@ -12,10 +12,18 @@ class Chart extends StatelessWidget {
     List<ChartItem> chartItems = [];
 
     for (int i = 1; i <= chartItemCount; i++) {
-      String nickname = data[i - 1] != null ? data[i - 1]!.nickname : '';
+      String nickname = '';
+      int co2Kg = 0;
+      SharedData? usrData = data[i - 1];
+      if (usrData != null) {
+        nickname = usrData.nickname;
+        co2Kg = usrData.co2;
+      }
+
       chartItems.add(ChartItem(
         nickname: nickname,
         position: i,
+        co2Kg: co2Kg,
       ));
     }
 
