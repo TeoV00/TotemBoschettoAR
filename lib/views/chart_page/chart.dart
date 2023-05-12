@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:totem_boschetto/model/share_data_model.dart';
 import 'package:totem_boschetto/views/chart_page/chart_item.dart';
+import 'package:totem_boschetto/views/common/utilityShelfTree.dart';
 
 class Chart extends StatelessWidget {
   final List<SharedData?> data;
@@ -9,7 +10,7 @@ class Chart extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    List<ChartItem> chartItems = [];
+    List<Widget> chartItems = [];
 
     for (int i = 1; i <= chartItemCount; i++) {
       String nickname = '';
@@ -20,17 +21,20 @@ class Chart extends StatelessWidget {
         co2Kg = usrData.co2;
       }
 
-      chartItems.add(ChartItem(
-        nickname: nickname,
-        position: i,
-        co2Kg: co2Kg,
-      ));
+      chartItems.add(
+        ChartItem(
+          nickname: nickname,
+          position: i,
+          co2Kg: co2Kg,
+          tailChild: getLevelPicture(level: i),
+        ),
+      );
     }
 
     return Column(
       children: [
         Padding(
-          padding: const EdgeInsets.all(20.0),
+          padding: const EdgeInsets.all(15.0),
           child: Row(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [chartItems[0]],
@@ -44,7 +48,7 @@ class Chart extends StatelessWidget {
           ],
         ),
         Padding(
-          padding: const EdgeInsets.only(top: 50.0),
+          padding: const EdgeInsets.only(top: 40.0),
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceAround,
             children: [
