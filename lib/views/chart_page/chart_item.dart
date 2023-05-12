@@ -5,15 +5,18 @@ class ChartItem extends StatelessWidget {
   final int position;
   final String nickname;
   final int co2Kg;
+  final Widget? tailChild;
 
   const ChartItem(
       {super.key,
       required this.position,
       required this.nickname,
-      required this.co2Kg});
+      required this.co2Kg,
+      this.tailChild});
 
   @override
   Widget build(BuildContext context) {
+    const double medalHeigth = 115;
     return Padding(
       padding: const EdgeInsets.all(10.0),
       child: Stack(
@@ -30,13 +33,15 @@ class ChartItem extends StatelessWidget {
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: [
-                  Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 20.0),
-                    child: Text(
-                      "$position°",
-                      style: const TextStyle(fontSize: 28),
-                    ),
-                  ),
+                  position > 0 && position < 4
+                      ? const SizedBox(width: medalHeigth)
+                      : Padding(
+                          padding: const EdgeInsets.symmetric(horizontal: 20.0),
+                          child: Text(
+                            "$position°",
+                            style: const TextStyle(fontSize: 28),
+                          ),
+                        ),
                   const Spacer(),
                   Column(
                     mainAxisAlignment: MainAxisAlignment.center,
@@ -55,6 +60,7 @@ class ChartItem extends StatelessWidget {
                     ],
                   ),
                   const Spacer(),
+                  if (tailChild != null) ...[tailChild!],
                 ],
               ),
             ),
@@ -64,7 +70,7 @@ class ChartItem extends StatelessWidget {
               padding: const EdgeInsets.only(top: 15.0),
               child: Image.asset(
                 '$iconsPath/medals/medal-$position.png',
-                height: 115,
+                height: medalHeigth,
               ),
             )
           ]
