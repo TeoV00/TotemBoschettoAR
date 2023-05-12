@@ -26,7 +26,7 @@ class Chart extends StatelessWidget {
           nickname: nickname,
           position: i,
           co2Kg: co2Kg,
-          tailChild: getLevelPicture(level: i),
+          tailChild: getLevelPicture(level: usrData?.level ?? 0),
         ),
       );
     }
