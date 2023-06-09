@@ -1,38 +1,24 @@
-import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/material.dart';
+import 'package:totem_boschetto/dataProvider/firebase_provider.dart';
 import 'package:totem_boschetto/model/share_data_model.dart';
 import 'package:totem_boschetto/unit_converter.dart';
 import 'package:totem_boschetto/views/statistic_widgets/statistics_constant.dart';
 
-class DataManager extends ChangeNotifier {
+class DataManager extends ChangeNotifier implements FirebaseObserver {
   final String _totemId = "ces_remade";
-
-  late final DatabaseReference dbRef;
+  late final FirebaseProvider _firebaseProvider;
 
   DataManager() {
-    dbRef = FirebaseDatabase.instance.ref("totems/$_totemId");
-    dbRef.onChildAdded.listen((event) {
-      notifyListeners();
-    });
-    dbRef.onChildChanged.listen((event) {
-      notifyListeners();
-    });
-    dbRef.onChildRemoved.listen((event) {
-      notifyListeners();
-    });
+    _firebaseProvider = FirebaseProvider(_totemId);
+    _firebaseProvider.addObserver(this);
   }
 
-  Future<List<SharedData>> getTotemData() async {
-    List<SharedData> sharedUserData = [];
-    DataSnapshot snap = await dbRef.get();
+  String getCurrentTotemId() {
+    return _totemId;
+  }
 
-    if (snap.exists) {
-      sharedUserData = snap.children
-          .map((e) =>
-              SharedData.fromMap(Map<String, dynamic>.from(e.value as Map)))
-          .toList();
-    }
-    return sharedUserData;
+  Future<List<SharedData>> getData() async {
+    return _firebaseProvider.getTotemData();
   }
 
   /// Get ordered list of 10 user SharedData. If fecthed data from online db
@@ -40,7 +26,7 @@ class DataManager extends ChangeNotifier {
   /// return List of SharedData
   Future<List<SharedData?>> getTop10User() async {
     const counLimit = 10;
-    var data = await getTotemData();
+    var data = await getData();
     data.sort((a, b) => b.co2.compareTo(a.co2));
 
     List<SharedData?> top10 = [];
@@ -51,16 +37,11 @@ class DataManager extends ChangeNotifier {
         top10.add(null);
       }
     }
-
     return top10;
   }
 
-  String getCurrentTotemId() {
-    return _totemId;
-  }
-
   Future<Map<StatId, String>> getStatistics() async {
-    List<SharedData> totemData = await getTotemData();
+    List<SharedData> totemData = await getData();
     double co2 = 0;
     int trees = 0;
     int paper = 0;
@@ -80,5 +61,10 @@ class DataManager extends ChangeNotifier {
       StatId.fuel:
           "${UnitConverter.fromCo2ToBenzinaLiter(co2).toStringAsFixed(0)} Litri",
     };
+  }
+
+  @override
+  void firebaseNotify() {
+    notifyListeners();
   }
 }
