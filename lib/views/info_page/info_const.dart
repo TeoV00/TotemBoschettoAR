@@ -12,7 +12,7 @@ final infoSections = [
     'title':
         '''Come è stata calcolata la $co2String a partire dai fogli di carta?''',
     'body':
-        '''I dati della $co2String, energia elettrica e taniche di benzina (da 20 litri) sono stati calcolati a partire dalla quantità di fogli di carta risparmiati.
+        '''I dati della $co2String sono stati calcolati a partire dalla quantità di fogli di carta risparmiati.
 Nei calcoli delle conversioni è stato considerato un foglio di carta da ufficio con densità pari a 80g/m².
 
 Considerato, come regola generale, che 1 Kg di carta corrisponde ad 1 Kg di $co2String durante la sua produzione (1,2 kg di $co2String per la carta non riciclata e 0,7 kg di $co2String per la carta riciclata) si ottiene che si hanno circa 16 fogli/m².

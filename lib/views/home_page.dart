@@ -44,7 +44,7 @@ class _HomePageState extends State<HomePage> {
               child: Consumer<DataManager>(
                 builder: (context, dataManager, child) =>
                     FutureBuilder<List<SharedData>>(
-                  future: dataManager.getTotemData(),
+                  future: dataManager.getData(),
                   builder: (context, snapshot) {
                     if (snapshot.hasData) {
                       return GridView.count(
