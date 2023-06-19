@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:totem_boschetto/dataProvider/data_manager.dart';
-import 'package:totem_boschetto/views/statistic_widgets/statistics_constant.dart';
-import 'package:totem_boschetto/views/statistic_widgets/stats_circle.dart';
+import 'package:totem_boschetto/data_manager.dart';
+import 'package:totem_boschetto/views/stats_page/statistics_constant.dart';
+import 'package:totem_boschetto/views/stats_page/stats_circle.dart';
 
 const statIconPath = "/icons/statistics/";
 

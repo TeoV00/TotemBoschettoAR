@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-import 'package:totem_boschetto/dataProvider/data_manager.dart';
+import 'package:totem_boschetto/data_manager.dart';
 import 'package:totem_boschetto/model/share_data_model.dart';
 import 'package:totem_boschetto/views/chart_page/chart.dart';
 

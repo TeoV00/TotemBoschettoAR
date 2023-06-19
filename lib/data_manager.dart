@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:totem_boschetto/dataProvider/firebase_provider.dart';
 import 'package:totem_boschetto/model/share_data_model.dart';
 import 'package:totem_boschetto/unit_converter.dart';
-import 'package:totem_boschetto/views/statistic_widgets/statistics_constant.dart';
+import 'package:totem_boschetto/views/stats_page/statistics_constant.dart';
 
 class DataManager extends ChangeNotifier implements FirebaseObserver {
   final String _totemId = "ces_remade";

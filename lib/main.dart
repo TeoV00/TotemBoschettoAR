@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:totem_boschetto/dataProvider/data_manager.dart';
+import 'package:totem_boschetto/data_manager.dart';
 import 'package:totem_boschetto/views/navigation_menu/navigation_rail_menu.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'firebase_options.dart';

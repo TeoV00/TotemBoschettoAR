@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:totem_boschetto/views/common/resizing_icon.dart';
-import 'package:totem_boschetto/views/statistic_widgets/circle_box.dart';
-import 'package:totem_boschetto/views/statistic_widgets/description_box.dart';
+import 'package:totem_boschetto/views/stats_page/circle_box.dart';
+import 'package:totem_boschetto/views/stats_page/description_box.dart';
 
 const squareBoxRadius = 10.0;
 
